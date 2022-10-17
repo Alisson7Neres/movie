@@ -2,7 +2,7 @@ package com.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ModelDTO {
+public class MovieDTO {
 
 	@JsonProperty("Title")
 	private String title;
