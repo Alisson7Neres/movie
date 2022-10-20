@@ -38,5 +38,9 @@ public class MovieService {
 		MovieModel movieModel = movieConverter.converterParaFilme(movieDTO);
 		return movieRepository.save(movieModel);
 	}
+	
+	public void deleteMovie(Long id) {
+		 movieRepository.deleteById(id);
+	}
 
 }

@@ -29,7 +29,7 @@ public class MovieConverter {
 		
 		MovieVO movieVO = new MovieVO();
 		
-		movieVO.setId(null);
+		movieVO.setId(movieModel.getId());
 		movieVO.setTitle(movieModel.getTitle());
 		movieVO.setYear(movieModel.getYear());
 		movieVO.setReleased(movieModel.getReleased());
