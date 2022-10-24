@@ -3,16 +3,21 @@ package com.movie.controller;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.model.dto.MovieDTO;
 import com.movie.converter.MovieConverter;
@@ -21,7 +26,7 @@ import com.movie.vo.MovieOMDB;
 import com.movie.vo.MovieVO;
 
 @Controller
-@RequestMapping("/filmes")
+//@RequestMapping("/filmes")
 public class MovieController {
 
 	@Autowired
@@ -29,6 +34,13 @@ public class MovieController {
 
 	@Autowired
 	private MovieConverter movieConverter;
+
+	List<MovieOMDB> movieOMDBs = new ArrayList<>();
+
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
 
 	@GetMapping("/omdb/{tema}")
 	public ResponseEntity<MovieOMDB> getMovie(@PathVariable String tema) {
@@ -41,6 +53,60 @@ public class MovieController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
+	}
+
+	String pegaTitulo = "";
+	String year = "";
+	String released = "";
+	String runtime = "";
+	String genre = "";
+	String language = "";
+	String country = "";
+	String poster = "";
+
+	@PostMapping("/pesquisar")
+	public String postMoviePesquisa(@RequestParam("consultar") String titulo) {
+
+		MovieOMDB movieOMDB = movieService.getMovie(titulo);
+		ModelAndView andView = new ModelAndView();
+		andView.addObject("consultar", movieOMDB);
+
+		pegaTitulo = movieOMDB.getTitle();
+		year = movieOMDB.getYear();
+		released = movieOMDB.getReleased();
+		runtime = movieOMDB.getRuntime();
+		;
+		genre = movieOMDB.getGenre();
+		language = movieOMDB.getLanguage();
+		country = movieOMDB.getCountry();
+		poster = movieOMDB.getPoster();
+
+		movieOMDB.setTitle(pegaTitulo);
+		movieOMDB.setYear(year);
+		movieOMDB.setReleased(released);
+		movieOMDB.setRuntime(runtime);
+		movieOMDB.setGenre(genre);
+		movieOMDB.setLanguage(language);
+		movieOMDB.setCountry(country);
+		movieOMDB.setPoster(poster);
+
+		return "redirect:/filmes";
+
+	}
+
+	@GetMapping("/filmes")
+	public String getMovie(ModelMap model) {
+
+		model.addAttribute("title", pegaTitulo);
+		model.addAttribute("year", year);
+		model.addAttribute("released", released);
+		model.addAttribute("runtime", runtime);
+		model.addAttribute("genre", genre);
+		model.addAttribute("language", language);
+		model.addAttribute("country", country);
+		model.addAttribute("poster", poster);
+		return "pesquisar";
+
 	}
 
 	@GetMapping("/{id}")
@@ -62,7 +128,7 @@ public class MovieController {
 		try {
 
 			MovieVO movieVO = movieConverter.converterParaFilmeVO(movieService.saveMovie(movieDTO));
-			
+
 			addHateoas(movieVO);
 			return ResponseEntity.status(HttpStatus.CREATED).body(movieVO);
 

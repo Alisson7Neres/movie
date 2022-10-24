@@ -21,7 +21,7 @@ public class MovieVO extends RepresentationModel<MovieVO> {
 	private String country;
 
 	private String poster;
-
+	
 	public Long getId() {
 		return id;
 	}
