@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html  xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" name="viewport"
+	content="width=device-width, initial-scale=1">
 <title>Filmes</title>
 <!-- CSS only -->
 <link
@@ -51,15 +52,16 @@
 									here</a></li>
 						</ul></li>
 				</ul>
-				<form class="navbar-nav ms-auto"  action="pesquisar" method="POST" id="pesquisar">
-					<input class="form-control mr-sm-2" type="text" name="consultar">	
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin: 5px"
-					th:value="${consultar}">Search</button>
+				<form class="navbar-nav ms-auto" action="pesquisar" method="POST"
+					id="pesquisar">
+					<input class="form-control mr-sm-2" type="text" name="consultar">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+						style="margin: 5px" th:value="${consultar}">Search</button>
 				</form>
 			</div>
 		</div>
 	</nav>
-	<!-- Page Content -->
+	<!-- Page Content 
 	<div class="container">
 		<h1 class="mt-4">Movies Random</h1>
 		<p> Selecione um filme aleátoriamente</p>
@@ -73,7 +75,44 @@
 		<p th:text="${country}"></p>
 		
 		<img th:src="${poster}" id="imageoption">
-		<!-- <img th:src="@{https://m.media-amazon.com/images/M/MV5BZWVlYzU2ZjQtZmNkMi00OTc3LTkwZmYtZDVjNmY4OWFmZGJlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg}"> -->
+	</div>
+	-->
+
+	<div class="table-responsive-sm">
+		<table class="table table-dark">
+			<thead>
+				<tr>
+					<th scope="col">Título</th>
+					<th scope="col">Ano</th>
+					<th scope="col">Classificação</th>
+					<th scope="col">Lançamento</th>
+					<th scope="col">Duração</th>
+					<th scope="col">Gênero</th>
+					<th scope="col">Idiomas</th>
+					<th scope="col">País de origem</th>
+					<th scope="col">IMDB</th>
+					<th scope="col">Poster</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${title}"></td>
+					<td th:text="${year}"></td>
+					<td th:text="${rated}"></td>
+					<td th:text="${released}"></td>
+					<td th:text="${runtime}"></td>
+					<td th:text="${genre}"></td>
+					<td th:text="${language}"></td>
+					<td th:text="${country}"></td>
+					<td th:text="${imdbRating}"></td>
+					<th><img th:src="${poster}" id="imageoption"></th>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="container">
+			<h3 th:text="${plot}"></h3>
+		</div>
 	</div>
 
 </body>

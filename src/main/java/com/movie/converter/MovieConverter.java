@@ -21,6 +21,10 @@ public class MovieConverter {
 		movieModel.setLanguage(movieDTO.getLanguage());
 		movieModel.setCountry(movieDTO.getCountry());
 		movieModel.setPoster(movieDTO.getPoster());
+		movieModel.setRated(movieDTO.getRated());
+		movieModel.setImdbRating(movieDTO.getImdbRating());
+		movieModel.setImdbID(movieDTO.getImdbID());
+		movieModel.setPlot(movieDTO.getPlot());
 		
 		return movieModel;
 	}
@@ -38,6 +42,10 @@ public class MovieConverter {
 		movieVO.setLanguage(movieModel.getLanguage());
 		movieVO.setCountry(movieModel.getCountry());
 		movieVO.setPoster(movieModel.getPoster());
+		movieVO.setRated(movieModel.getRated());
+		movieVO.setImdbRating(movieModel.getImdbRating());
+		movieVO.setImdbID(movieModel.getImdbID());
+		movieVO.setPlot(movieVO.getPlot());
 		
 		return movieVO;
 	}

@@ -6,27 +6,39 @@ public class MovieDTO {
 
 	@JsonProperty("Title")
 	private String title;
-	
+
 	@JsonProperty("Year")
 	private String year;
-	
+
 	@JsonProperty("Released")
 	private String released;
-	
+
 	@JsonProperty("Runtime")
 	private String runtime;
-	
+
 	@JsonProperty("Genre")
 	private String genre;
-	
+
 	@JsonProperty("Language")
 	private String language;
-	
+
 	@JsonProperty("Country")
 	private String country;
-	
+
+	@JsonProperty("Rated")
+	private String rated;
+
 	@JsonProperty("Poster")
 	private String poster;
+
+	@JsonProperty("imdbID")
+	private String imdbID;
+
+	@JsonProperty("imdbRating")
+	private String imdbRating;
+	
+	@JsonProperty("Plot")
+	private String plot;
 
 	public String getTitle() {
 		return title;
@@ -84,12 +96,44 @@ public class MovieDTO {
 		this.country = country;
 	}
 
+	public String getRated() {
+		return rated;
+	}
+
+	public void setRated(String rated) {
+		this.rated = rated;
+	}
+
 	public String getPoster() {
 		return poster;
 	}
 
 	public void setPoster(String poster) {
 		this.poster = poster;
+	}
+
+	public String getImdbID() {
+		return imdbID;
+	}
+
+	public void setImdbID(String imdbID) {
+		this.imdbID = imdbID;
+	}
+
+	public String getImdbRating() {
+		return imdbRating;
+	}
+
+	public void setImdbRating(String imdbRating) {
+		this.imdbRating = imdbRating;
+	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
 	}
 
 }

@@ -63,6 +63,10 @@ public class MovieController {
 	String language = "";
 	String country = "";
 	String poster = "";
+	String rated = "";
+	String imdbRating = "";
+	String imdbID = "";
+	String plot = "";
 
 	@PostMapping("/pesquisar")
 	public String postMoviePesquisa(@RequestParam("consultar") String titulo) {
@@ -74,12 +78,15 @@ public class MovieController {
 		pegaTitulo = movieOMDB.getTitle();
 		year = movieOMDB.getYear();
 		released = movieOMDB.getReleased();
-		runtime = movieOMDB.getRuntime();
-		;
+		runtime = movieOMDB.getRuntime();;
 		genre = movieOMDB.getGenre();
 		language = movieOMDB.getLanguage();
 		country = movieOMDB.getCountry();
 		poster = movieOMDB.getPoster();
+		rated = movieOMDB.getRated();
+		imdbRating = movieOMDB.getImdbRating();
+		imdbID = movieOMDB.getImdbID();
+		plot = movieOMDB.getPlot();
 
 		movieOMDB.setTitle(pegaTitulo);
 		movieOMDB.setYear(year);
@@ -89,6 +96,10 @@ public class MovieController {
 		movieOMDB.setLanguage(language);
 		movieOMDB.setCountry(country);
 		movieOMDB.setPoster(poster);
+		movieOMDB.setRated(rated);
+		movieOMDB.setImdbRating(imdbRating);
+		movieOMDB.setImdbID(imdbID);
+		movieOMDB.setPlot(plot);
 
 		return "redirect:/filmes";
 
@@ -105,6 +116,9 @@ public class MovieController {
 		model.addAttribute("language", language);
 		model.addAttribute("country", country);
 		model.addAttribute("poster", poster);
+		model.addAttribute("rated", rated);
+		model.addAttribute("imdbRating", imdbRating);
+		model.addAttribute("plot", plot);
 		return "pesquisar";
 
 	}

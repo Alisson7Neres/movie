@@ -34,8 +34,20 @@ public class MovieModel {
 	@Column(name = "pais")
 	private String country;
 
+	@Column(name = "clasificacao")
+	private String rated;
+
 	@Column(name = "poster")
 	private String poster;
+
+	@Column(name = "imdbID")
+	private String imdbID;
+
+	@Column(name = "imdbRating")
+	private String imdbRating;
+	
+	@Column(name = "enredo")
+	private String plot;
 
 	public Long getId() {
 		return id;
@@ -101,12 +113,44 @@ public class MovieModel {
 		this.country = country;
 	}
 
+	public String getRated() {
+		return rated;
+	}
+
+	public void setRated(String rated) {
+		this.rated = rated;
+	}
+
 	public String getPoster() {
 		return poster;
 	}
 
 	public void setPoster(String poster) {
 		this.poster = poster;
+	}
+
+	public String getImdbID() {
+		return imdbID;
+	}
+
+	public void setImdbID(String imdbID) {
+		this.imdbID = imdbID;
+	}
+
+	public String getImdbRating() {
+		return imdbRating;
+	}
+
+	public void setImdbRating(String imdbRating) {
+		this.imdbRating = imdbRating;
+	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
 	}
 
 }

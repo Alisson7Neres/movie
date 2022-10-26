@@ -20,8 +20,16 @@ public class MovieVO extends RepresentationModel<MovieVO> {
 
 	private String country;
 
+	private String rated;
+
 	private String poster;
-	
+
+	private String imdbID;
+
+	private String imdbRating;
+
+	private String plot;
+
 	public Long getId() {
 		return id;
 	}
@@ -86,12 +94,44 @@ public class MovieVO extends RepresentationModel<MovieVO> {
 		this.country = country;
 	}
 
+	public String getRated() {
+		return rated;
+	}
+
+	public void setRated(String rated) {
+		this.rated = rated;
+	}
+
 	public String getPoster() {
 		return poster;
 	}
 
 	public void setPoster(String poster) {
 		this.poster = poster;
+	}
+
+	public String getImdbID() {
+		return imdbID;
+	}
+
+	public void setImdbID(String imdbID) {
+		this.imdbID = imdbID;
+	}
+
+	public String getImdbRating() {
+		return imdbRating;
+	}
+
+	public void setImdbRating(String imdbRating) {
+		this.imdbRating = imdbRating;
+	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
 	}
 
 }
