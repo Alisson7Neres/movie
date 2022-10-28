@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html  xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" name="viewport"
+	content="width=device-width, initial-scale=1">
 <title>Index</title>
 <!-- CSS only -->
 <link
@@ -23,7 +24,7 @@
 		<div class="container">
 			<a class="navbar-brand" href="/movie/"> <img
 				src="https://placeholder.pics/svg/150x50/888888/EEE/Logo" alt="..."
-				height="36" >
+				height="36">
 			</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -51,18 +52,25 @@
 									here</a></li>
 						</ul></li>
 				</ul>
-				<form class="navbar-nav ms-auto"  action="pesquisar" method="POST" id="pesquisar">
+				<form class="navbar-nav ms-auto" action="pesquisar" method="POST"
+					id="pesquisar">
 					<input class="form-control mr-sm-2" type="text" name="consultar">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin: 5px"
-					th:value="${consultar}">Search</button>
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+						style="margin: 5px" th:value="${consultar}">Search</button>
 				</form>
 			</div>
 		</div>
 	</nav>
 
 	<!-- Page Content -->
-	<div class="container">
-		<h1 class="mt-4">Movies Random</h1>
-		<p> Selecione um filme aleátoriamente</p>
+	<div style="margin: auto; width: 50%; padding: 10px;">
+		<div style="margin: auto; width: 50%; padding: 10px;">
+			<h1 class="mt-4" style="width: 100%; margin: 0%;">Movies Random</h1>
+			<p>Selecione um filme aleátoriamente</p>
+			<form class="container" action="random/movie" method="POST">
+			<input class="form-control mr-sm-2" type="text" name="consultar" hidden="">
+				<button class="btn btn-dark"style="margin: auto; width: 50%; padding: 10px;" type="submit" th:value="${consultar}">RANDOM</button>
+			</form>
+		</div>
 	</div>
 </body>

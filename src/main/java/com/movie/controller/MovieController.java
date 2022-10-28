@@ -55,7 +55,7 @@ public class MovieController {
 		}
 	}
 
-	String pegaTitulo = "";
+	String titulo = "";
 	String year = "";
 	String released = "";
 	String runtime = "";
@@ -69,16 +69,17 @@ public class MovieController {
 	String plot = "";
 
 	@PostMapping("/pesquisar")
-	public String postMoviePesquisa(@RequestParam("consultar") String titulo) {
+	public String postMoviePesquisa(@RequestParam("consultar") String pegarTitulo) {
 
+		titulo = pegarTitulo;
 		MovieOMDB movieOMDB = movieService.getMovie(titulo);
 		ModelAndView andView = new ModelAndView();
 		andView.addObject("consultar", movieOMDB);
 
-		pegaTitulo = movieOMDB.getTitle();
+		titulo = movieOMDB.getTitle();
 		year = movieOMDB.getYear();
 		released = movieOMDB.getReleased();
-		runtime = movieOMDB.getRuntime();;
+		runtime = movieOMDB.getRuntime();
 		genre = movieOMDB.getGenre();
 		language = movieOMDB.getLanguage();
 		country = movieOMDB.getCountry();
@@ -88,7 +89,7 @@ public class MovieController {
 		imdbID = movieOMDB.getImdbID();
 		plot = movieOMDB.getPlot();
 
-		movieOMDB.setTitle(pegaTitulo);
+		movieOMDB.setTitle(titulo);
 		movieOMDB.setYear(year);
 		movieOMDB.setReleased(released);
 		movieOMDB.setRuntime(runtime);
@@ -101,6 +102,8 @@ public class MovieController {
 		movieOMDB.setImdbID(imdbID);
 		movieOMDB.setPlot(plot);
 
+		System.out.println(imdbID);
+
 		return "redirect:/filmes";
 
 	}
@@ -108,7 +111,7 @@ public class MovieController {
 	@GetMapping("/filmes")
 	public String getMovie(ModelMap model) {
 
-		model.addAttribute("title", pegaTitulo);
+		model.addAttribute("title", titulo);
 		model.addAttribute("year", year);
 		model.addAttribute("released", released);
 		model.addAttribute("runtime", runtime);
@@ -121,6 +124,106 @@ public class MovieController {
 		model.addAttribute("plot", plot);
 		return "pesquisar";
 
+	}
+
+	long number = 0;
+	String tt = "";
+
+	@PostMapping("/random/movie")
+	public String randomMovie(@RequestParam("consultar") String imdbID) {
+
+		number = (long) (1000000l + Math.random() * 8999999l);
+		String tt = "tt" + number;
+
+		imdbID = tt;
+		MovieOMDB movieOMDB = movieService.getRandomMovie(imdbID);
+		System.out.println(imdbID);
+
+		ModelAndView andView = new ModelAndView();
+		andView.addObject("consultar", movieOMDB);
+
+		while (titulo == null) {
+			number = (long) (1000000l + Math.random() * 8999999l);
+			tt = "tt" + number;
+			imdbID = tt;
+			movieOMDB = movieService.getRandomMovie(imdbID);
+
+			if (movieOMDB.getTitle() != null) {
+				titulo = movieOMDB.getTitle();
+				year = movieOMDB.getYear();
+				released = movieOMDB.getReleased();
+				runtime = movieOMDB.getRuntime();
+				genre = movieOMDB.getGenre();
+				language = movieOMDB.getLanguage();
+				country = movieOMDB.getCountry();
+				poster = movieOMDB.getPoster();
+				rated = movieOMDB.getRated();
+				imdbRating = movieOMDB.getImdbRating();
+				imdbID = movieOMDB.getImdbID();
+				plot = movieOMDB.getPlot();
+
+				movieOMDB.setTitle(titulo);
+				movieOMDB.setYear(year);
+				movieOMDB.setReleased(released);
+				movieOMDB.setRuntime(runtime);
+				movieOMDB.setGenre(genre);
+				movieOMDB.setLanguage(language);
+				movieOMDB.setCountry(country);
+				movieOMDB.setPoster(poster);
+				movieOMDB.setRated(rated);
+				movieOMDB.setImdbRating(imdbRating);
+				movieOMDB.setImdbID(imdbID);
+				movieOMDB.setPlot(plot);
+				
+				return "redirect:/random";
+			}
+		}
+
+		if (titulo != null) {
+			titulo = movieOMDB.getTitle();
+			year = movieOMDB.getYear();
+			released = movieOMDB.getReleased();
+			runtime = movieOMDB.getRuntime();
+			genre = movieOMDB.getGenre();
+			language = movieOMDB.getLanguage();
+			country = movieOMDB.getCountry();
+			poster = movieOMDB.getPoster();
+			rated = movieOMDB.getRated();
+			imdbRating = movieOMDB.getImdbRating();
+			imdbID = movieOMDB.getImdbID();
+			plot = movieOMDB.getPlot();
+
+			movieOMDB.setTitle(titulo);
+			movieOMDB.setYear(year);
+			movieOMDB.setReleased(released);
+			movieOMDB.setRuntime(runtime);
+			movieOMDB.setGenre(genre);
+			movieOMDB.setLanguage(language);
+			movieOMDB.setCountry(country);
+			movieOMDB.setPoster(poster);
+			movieOMDB.setRated(rated);
+			movieOMDB.setImdbRating(imdbRating);
+			movieOMDB.setImdbID(imdbID);
+			movieOMDB.setPlot(plot);
+		}
+		return "redirect:/random";
+	}
+
+	@GetMapping("/random")
+	public String getRandomMovie(ModelMap model) {
+		model.addAttribute("title", titulo);
+		model.addAttribute("year", year);
+		model.addAttribute("released", released);
+		model.addAttribute("runtime", runtime);
+		model.addAttribute("genre", genre);
+		model.addAttribute("language", language);
+		model.addAttribute("country", country);
+		model.addAttribute("poster", poster);
+		model.addAttribute("rated", rated);
+		model.addAttribute("imdbRating", imdbRating);
+		model.addAttribute("plot", plot);
+		model.addAttribute("imdbID", tt);
+		return "random";
 	}
 
 	@GetMapping("/{id}")

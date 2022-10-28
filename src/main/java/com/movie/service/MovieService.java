@@ -34,6 +34,10 @@ public class MovieService {
 		return (MovieModel) movieRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Filme NÃO encontrado!"));
 	}
 	
+	public MovieOMDB getRandomMovie(String imdbID) {
+		return movieFeign.getRandomMovie(imdbID, apiKey);
+	}
+	
 	public MovieModel saveMovie(MovieDTO movieDTO) {
 		MovieModel movieModel = movieConverter.converterParaFilme(movieDTO);
 		return movieRepository.save(movieModel);

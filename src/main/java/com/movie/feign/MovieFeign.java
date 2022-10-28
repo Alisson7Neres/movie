@@ -11,4 +11,7 @@ public interface MovieFeign {
 
 	@GetMapping
 	MovieOMDB getMovie(@RequestParam("t") String tema, @RequestParam("apiKey") String key);
+	
+	@GetMapping
+	MovieOMDB getRandomMovie(@RequestParam("i") String imdbID, @RequestParam("apiKey") String key);
 }
