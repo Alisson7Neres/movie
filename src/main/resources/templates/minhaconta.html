@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1">
-<title>Index</title>
+<title>Minha Conta</title>
 <!-- CSS only -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -35,7 +35,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/movie/minhaconta">Minha conta</a></li>
+						aria-current="page" href="#">Minha conta</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Gênero</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -61,16 +61,40 @@
 			</div>
 		</div>
 	</nav>
-
+	<br />
+	<br />
+	<br />
+	<br />
 	<!-- Page Content -->
 	<div style="margin: auto; width: 50%; padding: 10px;">
-		<div style="margin: auto; width: 50%; padding: 10px; text-align:center;">
-			<h1 class="mt-4" style="width: 100%; margin: 0%;">Movies Random</h1>
-			<p>Selecione um filme aleátoriamente</p>
-			<form class="container" action="random/movie" method="POST">
-			<input class="form-control mr-sm-2" type="text" name="consultar" hidden="">
-				<button class="btn btn-dark"style="margin: auto; width: 50%; padding: 10px;" type="submit" th:value="${consultar}">RANDOM</button>
+		<div style="margin: auto; width: 50%; padding: 10px; text-align: center;">
+			<form action="conta/create" method="POST" th:object="${pessoaModel}"
+				class="form-inline">
+				<div class="form-group row">
+					<label>Nome</label> <input type="text" name="nome" field="*{nome}"
+						class="validate" required="required">
+				</div>
+
+
+				<div class="form-group row">
+					<label class="sr-only" for="inlineFormInputGroupUsername2">Email</label>
+					<div class="input-group mb-2 mr-sm-2">
+						<div class="input-group-prepend">
+							<div class="input-group-text">@</div>
+						</div>
+						<input type="text" id="inlineFormInputGroupUsername2"
+							class="form-control" name="email" field="*{email}"
+							required="required">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label>Senha</label> 
+					<input type="password" name="senha" field="*{senha}" class="validate" required="required">
+				</div>
+				<button class="btn btn-success" style="margin: 10px;" type="submit">Cadastrar</button>
 			</form>
 		</div>
 	</div>
+
+
 </body>
