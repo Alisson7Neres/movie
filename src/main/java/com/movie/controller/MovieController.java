@@ -46,7 +46,7 @@ public class MovieController {
 	public String minhaConta() {
 		return "minhaconta";
 	}
-
+	
 	@GetMapping("/omdb/{tema}")
 	public ResponseEntity<MovieOMDB> getMovie(@PathVariable String tema) {
 
