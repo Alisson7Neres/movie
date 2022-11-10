@@ -49,17 +49,6 @@ public class PessoaModel implements UserDetails{
 	@ForeignKey(name = "role_fk", value = ConstraintMode.CONSTRAINT)))
 	private List<Role> roles = new ArrayList<Role>();
 	
-	/*
-	 @JoinTable(name = "usuarios_role", uniqueConstraints = @UniqueConstraint(columnNames = { "usuario_id",
-			"role_id" }, name = "unique_role_user"), 
-			joinColumns = @JoinColumn(name = "usuario_id",
-			 referencedColumnName = "id", table = "usuario", unique = false, foreignKey =
-			 @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)), inverseJoinColumns = 
-			 @JoinColumn(name = "role_id", referencedColumnName = "id", table = "role", unique = false, updatable = false, foreignKey =
-			  @ForeignKey(name = "role_fk", value = ConstraintMode.CONSTRAINT)))
-	private List<Role> roles = new ArrayList<Role>();
-	 */
-	
 	public Long getId() {
 		return id;
 	}

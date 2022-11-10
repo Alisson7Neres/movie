@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -20,6 +21,7 @@ public class Role implements GrantedAuthority {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_role")
 	private Long id;
 
+	@Value(value = "ROLE_USER")
 	private String nomeRole;
 
 	@Override

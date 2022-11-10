@@ -49,9 +49,6 @@ public class ImplementacaoUserDetailsService implements UserDetailsService {
 			jdbcTemplate.execute("alter table pessoas_role drop constraint " + constraint);
 
 		}
-		// Insere os acessos padrão
-		pessoaRepository.insereAcessoRolePadrao(id);
-
 	}
 
 }
