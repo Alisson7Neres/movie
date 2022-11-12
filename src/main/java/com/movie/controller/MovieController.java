@@ -41,12 +41,12 @@ public class MovieController {
 	public String index() {
 		return "index";
 	}
-	
+
 	@GetMapping("/minhaconta")
 	public String minhaConta() {
 		return "minhaconta";
 	}
-	
+
 	@GetMapping("/omdb/{tema}")
 	public ResponseEntity<MovieOMDB> getMovie(@PathVariable String tema) {
 
@@ -147,44 +147,58 @@ public class MovieController {
 		ModelAndView andView = new ModelAndView();
 		andView.addObject("consultar", movieOMDB);
 
-		while (titulo == null) {
-			number = (long) (1000000l + Math.random() * 8999999l);
-			tt = "tt" + number;
-			imdbID = tt;
-			movieOMDB = movieService.getRandomMovie(imdbID);
+		titulo = movieOMDB.getTitle();
+		poster = movieOMDB.getPoster();
+		imdbRating = movieOMDB.getImdbRating();
 
-			if (movieOMDB.getTitle() != null) {
-				titulo = movieOMDB.getTitle();
-				year = movieOMDB.getYear();
-				released = movieOMDB.getReleased();
-				runtime = movieOMDB.getRuntime();
-				genre = movieOMDB.getGenre();
-				language = movieOMDB.getLanguage();
-				country = movieOMDB.getCountry();
-				poster = movieOMDB.getPoster();
-				rated = movieOMDB.getRated();
-				imdbRating = movieOMDB.getImdbRating();
-				imdbID = movieOMDB.getImdbID();
-				plot = movieOMDB.getPlot();
+		if (titulo == null || poster.contains("N/A") || imdbRating.contains("N/A")) {
+			
+			titulo = "";
+			poster = "N/A";
+			imdbRating = "N/A";
 
-				movieOMDB.setTitle(titulo);
-				movieOMDB.setYear(year);
-				movieOMDB.setReleased(released);
-				movieOMDB.setRuntime(runtime);
-				movieOMDB.setGenre(genre);
-				movieOMDB.setLanguage(language);
-				movieOMDB.setCountry(country);
-				movieOMDB.setPoster(poster);
-				movieOMDB.setRated(rated);
-				movieOMDB.setImdbRating(imdbRating);
-				movieOMDB.setImdbID(imdbID);
-				movieOMDB.setPlot(plot);
-				
-				return "redirect:/random";
+			while (titulo.isEmpty() && poster.contains("N/A") && imdbRating.contains("N/A")) {
+				number = (long) (1000000l + Math.random() * 8999999l);
+				tt = "tt" + number;
+				imdbID = tt;
+				movieOMDB = movieService.getRandomMovie(imdbID);
+				System.out.println(imdbID);
+
+				if (movieOMDB.getTitle() != null && !movieOMDB.getImdbRating().contains("N/A")
+						&& !movieOMDB.getPoster().contains("N/A")) {
+					titulo = movieOMDB.getTitle();
+					year = movieOMDB.getYear();
+					released = movieOMDB.getReleased();
+					runtime = movieOMDB.getRuntime();
+					genre = movieOMDB.getGenre();
+					language = movieOMDB.getLanguage();
+					country = movieOMDB.getCountry();
+					poster = movieOMDB.getPoster();
+					rated = movieOMDB.getRated();
+					imdbRating = movieOMDB.getImdbRating();
+					imdbID = movieOMDB.getImdbID();
+					plot = movieOMDB.getPlot();
+
+					movieOMDB.setTitle(titulo);
+					movieOMDB.setYear(year);
+					movieOMDB.setReleased(released);
+					movieOMDB.setRuntime(runtime);
+					movieOMDB.setGenre(genre);
+					movieOMDB.setLanguage(language);
+					movieOMDB.setCountry(country);
+					movieOMDB.setPoster(poster);
+					movieOMDB.setRated(rated);
+					movieOMDB.setImdbRating(imdbRating);
+					movieOMDB.setImdbID(imdbID);
+					movieOMDB.setPlot(plot);
+
+					return "redirect:/random";
+				}
 			}
 		}
 
-		if (titulo != null) {
+		if (movieOMDB.getTitle() != null && !movieOMDB.getImdbRating().contains("N/A")
+				&& !movieOMDB.getPoster().contains("N/A")) {
 			titulo = movieOMDB.getTitle();
 			year = movieOMDB.getYear();
 			released = movieOMDB.getReleased();
@@ -210,7 +224,9 @@ public class MovieController {
 			movieOMDB.setImdbRating(imdbRating);
 			movieOMDB.setImdbID(imdbID);
 			movieOMDB.setPlot(plot);
+
 		}
+
 		return "redirect:/random";
 	}
 
