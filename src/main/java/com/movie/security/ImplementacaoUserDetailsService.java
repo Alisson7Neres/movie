@@ -4,7 +4,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +22,8 @@ public class ImplementacaoUserDetailsService implements UserDetailsService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	public static String nome = "";
+	public static String email = "";
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -35,8 +36,18 @@ public class ImplementacaoUserDetailsService implements UserDetailsService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new User(pessoaModel.getUsername(), pessoaModel.getPassword(), pessoaModel.isEnabled(), true, true, true,
-				pessoaModel.getAuthorities());
+		
+		nome = pessoaModel.getNome();
+		email =  pessoaModel.getEmail();
+		return pessoaModel;
+	}
+	
+	public static String getEmail() {
+		return email;
+	}
+	
+	public static String getNome() {
+		return nome;
 	}
 
 	public void inserirAcessoPadrao(Long id) {

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.model.dto.MovieDTO;
 import com.movie.converter.MovieConverter;
+import com.movie.model.PessoaModel;
 import com.movie.service.MovieService;
 import com.movie.vo.MovieOMDB;
 import com.movie.vo.MovieVO;
@@ -41,10 +42,10 @@ public class MovieController {
 	public String index() {
 		return "index";
 	}
-
-	@GetMapping("/minhaconta")
-	public String minhaConta() {
-		return "minhaconta";
+	
+	@GetMapping("/cadastrar")
+	public String cadastrar() {
+		return "cadastrar";
 	}
 
 	@GetMapping("/omdb/{tema}")

@@ -11,10 +11,9 @@ public class PessoaService {
 
 	@Autowired
 	PessoaRepository pessoaRepository;
-	
+
 	public PessoaModel setPessoa(PessoaModel pessoaModel) {
 		pessoaModel.setId(null);
 		return pessoaRepository.save(pessoaModel);
 	}
-	
 }

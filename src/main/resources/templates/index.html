@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org">
+	xmlns:sec="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1">
@@ -20,6 +21,7 @@
 </head>
 <body>
 
+	<div id="loading" style="display: block">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 		<div class="container">
 			<a class="navbar-brand" href="/movie/"> <img
@@ -37,7 +39,7 @@
 				<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/movie/conta/login">Login</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/movie/minhaconta">Minha conta</a></li>
+						aria-current="page" href="/movie/cadastrar">Cadastrar</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Gênero</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -63,16 +65,34 @@
 			</div>
 		</div>
 	</nav>
-
+	<br/><br/><br/>
 	<!-- Page Content -->
-	<div style="margin: auto; width: 50%; padding: 10px;">
+	<div class="d-flex justify-content-center" >
 		<div style="margin: auto; width: 50%; padding: 10px; text-align:center;">
 			<h1 class="mt-4" style="width: 100%; margin: 0%;">Movies Random</h1>
-			<p>Selecione um filme aleátoriamente</p>
+			<p class="lead">Selecione um filme aleátoriamente</p>
 			<form class="container" action="random/movie" method="POST">
 			<input class="form-control mr-sm-2" type="text" name="consultar" hidden="">
-				<button class="btn btn-dark"style="margin: auto; width: 50%; padding: 10px;" type="submit" th:value="${consultar}">RANDOM</button>
+				<button class="btn btn-dark btn-lg" type="submit" th:value="${consultar}" onclick="btnRandom()">RANDOM</button>
 			</form>
 		</div>
 	</div>
+</div>
+
+	<div id="content" style="display: none" > <h1 class="mt-4" style="width: 100%; margin: 0%; padding: 200px;text-align: center;">Carregando! </h1></div>
+
 </body>
+
+<script>
+function btnRandom () {
+	
+	var i = setInterval(function () {
+		clearInterval(i);
+		
+		document.getElementById("loading").style.display = "none";
+		document.getElementById("content").style.display = "block";
+	},2000);
+}
+</script>
+
+</html>
