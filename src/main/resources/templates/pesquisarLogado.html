@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:sec="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1">
-<title>Logado</title>
+<title>Filmes</title>
 <!-- CSS only -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -21,7 +20,6 @@
 </head>
 <body>
 
-	<div id="loading">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 		<div class="container">
 			<a class="navbar-brand" href="/movie/"> <img
@@ -36,10 +34,14 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto">
-				<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/movie/conta/login">Sair</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/movie/conta/minhaconta">Minha conta</a></li>
+						aria-current="page">Usuário: <label
+							th:text="${pessoaModel.nome}"></label></a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page">Email: <label
+							th:text="${pessoaModel.email}"></label></a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/movie/minhaconta">Minha conta</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Gênero</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -56,8 +58,8 @@
 									here</a></li>
 						</ul></li>
 				</ul>
-				<form class="navbar-nav ms-auto" action="movie/pesquisar" method="POST"
-					id="pesquisar">
+				<form class="navbar-nav ms-auto" action="pesquisarLogado"
+					method="POST" id="pesquisar">
 					<input class="form-control mr-sm-2" type="text" name="consultar">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit"
 						style="margin: 5px" th:value="${consultar}">Search</button>
@@ -65,14 +67,59 @@
 			</div>
 		</div>
 	</nav>
-	<br/><br/><br/>
-	
-	<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-	<span th:text="${#authentication.getPrincipal().authorities}"></span>
 
-	
-</div>
+	<div class="table-responsive-sm">
+		<table class="table table-dark">
+			<thead>
+				<tr>
+					<th scope="col">Título</th>
+					<th scope="col">Ano</th>
+					<th scope="col">Classificação</th>
+					<th scope="col">Lançamento</th>
+					<th scope="col">Duração</th>
+					<th scope="col">Gênero</th>
+					<th scope="col">Idiomas</th>
+					<th scope="col">País de origem</th>
+					<th scope="col">IMDB</th>
+					<th scope="col">Poster</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${title}"></td>
+					<td th:text="${year}"></td>
+					<td th:text="${rated}"></td>
+					<td th:text="${released}"></td>
+					<td th:text="${runtime}"></td>
+					<td th:text="${genre}"></td>
+					<td th:text="${language}"></td>
+					<td th:text="${country}"></td>
+					<td th:text="${imdbRating}"></td>
+					<th><img th:src="${poster}" id="imageoption"></th>
+				</tr>
+			</tbody>
+		</table>
 
+
+		<div class="container">
+			<h3 th:text="${plot}"></h3>
+		</div>
+	</div>
+	<br />
+	<br />
+	<br />
+	<div class="d-flex justify-content-center">
+		<div>
+			<form class="navbar-nav ms-auto" action="assistidos" method="POST"
+				id="pesquisar">
+				<button class="btn btn-dark" th:value="${assistido}" type="submit">Assistido</button>
+			</form>
+			<br />
+			<form class="navbar-nav ms-auto" action="salvarLista" method="POST"
+				id="pesquisar">
+				<button class="btn btn-dark" th:value="${lista}" type="submit">Adicionar
+					a lista</button>
+			</form>
+		</div>
+	</div>
 </body>
-
-</html>

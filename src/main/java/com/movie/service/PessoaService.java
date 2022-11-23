@@ -16,4 +16,9 @@ public class PessoaService {
 		pessoaModel.setId(null);
 		return pessoaRepository.save(pessoaModel);
 	}
+
+	public void salvarAssistido(String filme, String nome) {
+		 pessoaRepository.salvarAssistido(filme, nome);
+		
+	}
 }

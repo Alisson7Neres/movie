@@ -22,6 +22,7 @@ public class ImplementacaoUserDetailsService implements UserDetailsService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	public static Long id = 0L;
 	public static String nome = "";
 	public static String email = "";
 	@Override
@@ -37,6 +38,7 @@ public class ImplementacaoUserDetailsService implements UserDetailsService {
 			e.printStackTrace();
 		}
 		
+		id = pessoaModel.getId();
 		nome = pessoaModel.getNome();
 		email =  pessoaModel.getEmail();
 		return pessoaModel;
@@ -48,6 +50,10 @@ public class ImplementacaoUserDetailsService implements UserDetailsService {
 	
 	public static String getNome() {
 		return nome;
+	}
+	
+	public static Long getId() {
+		return id;
 	}
 
 	public void inserirAcessoPadrao(Long id) {

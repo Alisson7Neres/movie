@@ -20,6 +20,8 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "pessoa")
 public class PessoaModel implements UserDetails{
@@ -38,6 +40,10 @@ public class PessoaModel implements UserDetails{
 
 	@Column(name = "senha")
 	private String senha;
+	
+	@OneToMany(mappedBy = "pessoaModel")
+	@JsonIgnoreProperties("pessoaModel")
+	private List<Assistidos> assistidos = new ArrayList<Assistidos>();
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "pessoas_role", uniqueConstraints = @UniqueConstraint(columnNames = { "pessoa_id",
@@ -79,6 +85,14 @@ public class PessoaModel implements UserDetails{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public List<Assistidos> getAssistidos() {
+		return assistidos;
+	}
+
+	public void setAssistidos(List<Assistidos> assistidos) {
+		this.assistidos = assistidos;
 	}
 
 	@Override

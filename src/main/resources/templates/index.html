@@ -22,77 +22,86 @@
 <body>
 
 	<div id="loading" style="display: block">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-		<div class="container">
-			<a class="navbar-brand" href="/movie/"> <img
-				src="https://placeholder.pics/svg/150x50/888888/EEE/Logo" alt="..."
-				height="36">
-			</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ms-auto">
-				<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/movie/conta/login">Login</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/movie/cadastrar">Cadastrar</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Gênero</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Dropdown </a>
-						<ul class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
-				</ul>
-				<form class="navbar-nav ms-auto" action="pesquisar" method="POST"
-					id="pesquisar">
-					<input class="form-control mr-sm-2" type="text" name="consultar">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit"
-						style="margin: 5px" th:value="${consultar}">Search</button>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+			<div class="container">
+				<a class="navbar-brand" href="/movie/"> <img
+					src="https://placeholder.pics/svg/150x50/888888/EEE/Logo" alt="..."
+					height="36">
+				</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="/movie/conta/login">Login</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="/movie/cadastrar">Cadastrar</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">Gênero</a></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Dropdown </a>
+							<ul class="dropdown-menu dropdown-menu-end"
+								aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="#">Action</a></li>
+								<li><a class="dropdown-item" href="#">Another action</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<li><a class="dropdown-item" href="#">Something else
+										here</a></li>
+							</ul></li>
+					</ul>
+					<form class="navbar-nav ms-auto" action="pesquisar" method="POST"
+						id="pesquisar">
+						<input class="form-control mr-sm-2" type="text" name="consultar">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+							style="margin: 5px" th:value="${consultar}">Search</button>
+					</form>
+				</div>
+			</div>
+		</nav>
+		<br />
+		<br />
+		<br />
+		<!-- Page Content -->
+		<div class="d-flex justify-content-center">
+			<div
+				style="margin: auto; width: 50%; padding: 10px; text-align: center;">
+				<h1 class="mt-4" style="width: 100%; margin: 0%;">Movies Random</h1>
+				<p class="lead">Selecione um filme aleátoriamente</p>
+				<form class="container" action="random/movie" method="POST">
+					<input class="form-control mr-sm-2" type="text" name="consultar"
+						hidden="">
+					<button class="btn btn-dark btn-lg" type="submit"
+						th:value="${consultar}" onclick="btnRandom()">RANDOM</button>
 				</form>
 			</div>
 		</div>
-	</nav>
-	<br/><br/><br/>
-	<!-- Page Content -->
-	<div class="d-flex justify-content-center" >
-		<div style="margin: auto; width: 50%; padding: 10px; text-align:center;">
-			<h1 class="mt-4" style="width: 100%; margin: 0%;">Movies Random</h1>
-			<p class="lead">Selecione um filme aleátoriamente</p>
-			<form class="container" action="random/movie" method="POST">
-			<input class="form-control mr-sm-2" type="text" name="consultar" hidden="">
-				<button class="btn btn-dark btn-lg" type="submit" th:value="${consultar}" onclick="btnRandom()">RANDOM</button>
-			</form>
-		</div>
 	</div>
-</div>
 
-	<div id="content" style="display: none" > <h1 class="mt-4" style="width: 100%; margin: 0%; padding: 200px;text-align: center;">Carregando! </h1></div>
+	<div id="content" style="display: none">
+		<h1 class="mt-4"
+			style="width: 100%; margin: 0%; padding: 200px; text-align: center;">Carregando!
+		</h1>
+	</div>
 
 </body>
 
 <script>
-function btnRandom () {
-	
-	var i = setInterval(function () {
-		clearInterval(i);
-		
-		document.getElementById("loading").style.display = "none";
-		document.getElementById("content").style.display = "block";
-	},2000);
-}
+	function btnRandom() {
+
+		var i = setInterval(function() {
+			clearInterval(i);
+
+			document.getElementById("loading").style.display = "none";
+			document.getElementById("content").style.display = "block";
+		}, 2000);
+	}
 </script>
 
 </html>

@@ -18,10 +18,10 @@ public class MovieService {
 	private String apiKey;
 	
 	@Autowired
-	MovieFeign movieFeign;
+	private MovieFeign movieFeign;
 	
 	@Autowired
-	MovieRepository movieRepository;
+	private MovieRepository movieRepository;
 	
 	@Autowired
 	private MovieConverter movieConverter;
@@ -32,6 +32,10 @@ public class MovieService {
 	
 	public MovieModel getById(Long id) {
 		return (MovieModel) movieRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Filme NÃO encontrado!"));
+	}
+	
+	public MovieOMDB getOmdbID(String omdbID) {
+		return movieFeign.getMovieOmdb(omdbID, apiKey);
 	}
 	
 	public MovieOMDB getRandomMovie(String imdbID) {
