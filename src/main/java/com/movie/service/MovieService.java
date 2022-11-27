@@ -1,6 +1,7 @@
 package com.movie.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import com.movie.repository.MovieRepository;
 import com.movie.vo.MovieOMDB;
 
 @Service
+@Configurable
 public class MovieService {
 	
 	@Value("${imdb.apikey}")

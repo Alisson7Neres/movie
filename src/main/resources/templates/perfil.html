@@ -42,8 +42,6 @@
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page">Email: <label
 								th:text="${pessoaModel.email}"></label></a></li>
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="/movie/minhaconta">Minha conta</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">Gênero</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -67,48 +65,46 @@
 							style="margin: 5px" th:value="${consultar}">Search</button>
 					</form>
 				</div>
+		<br />
+		<br />
+		<br />
+
 			</div>
 		</nav>
-		<br /> <br /> <br />
-
 		<!-- Sidebar -->
 		<nav id="sidebarMenu"
 			class="collapse d-lg-block sidebar collapse bg-white">
 			<div class="position-sticky">
 				<div class="list-group list-group-flush mx-3 mt-4">
-					<a href="#"
+					<a href="assistidos"
 						class="list-group-item list-group-item-action py-2 ripple"
 						aria-current="true"> <i
 						class="fas fa-tachometer-alt fa-fw me-3"></i><span>Filmes
 							Assistidos</span>
-					</a>
-					<div class="">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th scope="col">Titulo</th>
-									<th scope="col">Sinopse</th>
-									<th scope="col">Poster</th>
-								</tr>
-							</thead>
-							<tr th:each="assistidos : ${assistido}">
-								<td th:text="${assistidos.titulo}" />
-								<td th:text="${assistidos.sinopse}" />
-								<th><img th:src="${assistidos.poster}" id="imageoption"></th>
-							</tr>
-							</tbody>
-						</table>
-					</div>
+					</a> <a href="#"
+						class="list-group-item list-group-item-action py-2 ripple"
+						aria-current="true"> <i
+						class="fas fa-chart-area fa-fw me-3"></i><span>Lista</span>
+					</a> 
 				</div>
-				<a href="listas"
-					class="list-group-item list-group-item-action py-2 ripple"
-					aria-current="true"> <i class="fas fa-chart-area fa-fw me-3"></i><span>Lista</span>
-				</a>
 			</div>
 		</nav>
 
-
 	</div>
+		<!-- Page Content -->
+		<div class="d-flex justify-content-center" style="display: block">
+			<div
+				style="margin: auto; width: 50%; padding: 10px; text-align: center;">
+				<h1 class="mt-4" style="width: 100%; margin: 0%;">Movies Random</h1>
+				<p class="lead">Selecione um filme aleátoriamente</p>
+				<form class="container" action="random/movie" method="POST">
+					<input class="form-control mr-sm-2" type="text" name="consultar"
+						hidden="">
+					<button class="btn btn-dark btn-lg" type="submit"
+						th:value="${consultar}" onclick="btnRandom()">RANDOM</button>
+				</form>
+			</div>
+		</div>
 
 
 

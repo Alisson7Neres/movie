@@ -45,6 +45,10 @@ public class PessoaModel implements UserDetails{
 	@JsonIgnoreProperties("pessoaModel")
 	private List<Assistidos> assistidos = new ArrayList<Assistidos>();
 
+	@OneToMany(mappedBy = "pessoaModel")
+	@JsonIgnoreProperties("pessoaModel")
+	private List<Lista> lista = new ArrayList<Lista>();
+	
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "pessoas_role", uniqueConstraints = @UniqueConstraint(columnNames = { "pessoa_id",
 	"role_id" }, name = "unique_role_user"), 
@@ -93,6 +97,14 @@ public class PessoaModel implements UserDetails{
 
 	public void setAssistidos(List<Assistidos> assistidos) {
 		this.assistidos = assistidos;
+	}
+
+	public List<Lista> getLista() {
+		return lista;
+	}
+
+	public void setLista(List<Lista> lista) {
+		this.lista = lista;
 	}
 
 	@Override

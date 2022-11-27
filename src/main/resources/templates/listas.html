@@ -76,12 +76,10 @@
 			class="collapse d-lg-block sidebar collapse bg-white">
 			<div class="position-sticky">
 				<div class="list-group list-group-flush mx-3 mt-4">
-					<a href="#"
-						class="list-group-item list-group-item-action py-2 ripple"
-						aria-current="true"> <i
-						class="fas fa-tachometer-alt fa-fw me-3"></i><span>Filmes
-							Assistidos</span>
-					</a>
+				<a href="#"
+					class="list-group-item list-group-item-action py-2 ripple"
+					aria-current="true"> <i class="fas fa-chart-area fa-fw me-3"></i><span>Lista</span>
+				</a>
 					<div class="">
 						<table class="table table-bordered">
 							<thead>
@@ -91,19 +89,21 @@
 									<th scope="col">Poster</th>
 								</tr>
 							</thead>
-							<tr th:each="assistidos : ${assistido}">
-								<td th:text="${assistidos.titulo}" />
-								<td th:text="${assistidos.sinopse}" />
-								<th><img th:src="${assistidos.poster}" id="imageoption"></th>
+							<tr th:each="listas : ${lista}">
+								<td th:text="${listas.titulo}" />
+								<td th:text="${listas.sinopse}" />
+								<th><img th:src="${listas.poster}" id="imageoption"></th>
 							</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
-				<a href="listas"
-					class="list-group-item list-group-item-action py-2 ripple"
-					aria-current="true"> <i class="fas fa-chart-area fa-fw me-3"></i><span>Lista</span>
-				</a>
+								<a href="assistidos"
+						class="list-group-item list-group-item-action py-2 ripple"
+						aria-current="true"> <i
+						class="fas fa-tachometer-alt fa-fw me-3"></i><span>Filmes
+							Assistidos</span>
+					</a>
 			</div>
 		</nav>
 

@@ -16,8 +16,10 @@ import com.movie.model.Assistidos;
 import com.movie.model.PessoaModel;
 import com.movie.model.Role;
 import com.movie.repository.AssistidosRepository;
+import com.movie.repository.ListaRepository;
 import com.movie.repository.PessoaRepository;
 import com.movie.security.ImplementacaoUserDetailsService;
+import com.movie.service.MovieService;
 import com.movie.service.PessoaService;
 import com.movie.service.RoleService;
 
@@ -29,10 +31,20 @@ public class PessoaController {
 	PessoaService pessoaService;
 
 	@Autowired
+	MovieService movieService;
+	
+	@Autowired
 	RoleService roleService;
+	
+	public MovieService getMovieService() {
+		return movieService;
+	}
 
 	@Autowired
 	private AssistidosRepository assistidosRepository;
+	
+	@Autowired
+	private ListaRepository listaRepository;
 
 	@Autowired
 	private ImplementacaoUserDetailsService implementacaoUserDetailsService;
@@ -65,9 +77,17 @@ public class PessoaController {
 	@PostMapping(value = "/pesquisar")
 	public void postMoviePesquisa(@RequestParam("consultar") String pegarTitulo) {
 		MovieController movieController = new MovieController();
+		movieController.getMovieService();
 		movieController.postMoviePesquisa(pegarTitulo);
 	}
 
+	@PostMapping(value = "/random")
+	public void randomMovie(@RequestParam("consultar") String imdbID) {
+		MovieController movieController = new MovieController();
+		movieController.getMovieService();
+		movieController.randomMovie(imdbID);
+	}
+	
 	@GetMapping(value = "/minhaconta")
 	public String currentUserName(Principal principal, PessoaModel pessoaModel, Model model) {
 		Long id = 0L;
@@ -84,7 +104,7 @@ public class PessoaController {
 
 		return "minhaconta";
 	}
-
+	
 	@GetMapping(value = "/assistidos")
 	public ModelAndView assistidos(Principal principal, PessoaModel pessoaModel, Model model) {
 		currentUserName(principal, pessoaModel, model);
@@ -112,6 +132,33 @@ public class PessoaController {
 		return modelAndView;
 	}
 
+	@GetMapping(value = "/listas")
+	public ModelAndView lista(Principal principal, PessoaModel pessoaModel, Model model) {
+		currentUserName(principal, pessoaModel, model);
+		String nome = "";
+		nome = principal.getName();
+
+		Assistidos assistidos = new Assistidos();
+
+		Long id;
+		ModelAndView modelAndView = new ModelAndView("listas");
+
+		ImplementacaoUserDetailsService iDetailsService = new ImplementacaoUserDetailsService();
+		nome = iDetailsService.getNome();
+		id = iDetailsService.getId();
+
+		pessoaRepository.findById(id);
+
+		modelAndView.addObject("pessoaobj", pessoaModel.getClass());
+		modelAndView.addObject("lista", listaRepository.getLista(id));
+
+		currentUserName(principal, pessoaModel, model);
+
+		model.addAttribute("pessoaModel", pessoaModel);
+
+		return modelAndView;
+	}
+	
 	@GetMapping(value = "/login")
 	public String getLogin() {
 		return "login";

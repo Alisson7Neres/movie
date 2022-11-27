@@ -25,8 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.model.dto.MovieDTO;
 import com.movie.converter.MovieConverter;
 import com.movie.model.Assistidos;
+import com.movie.model.Lista;
 import com.movie.model.PessoaModel;
 import com.movie.repository.AssistidosRepository;
+import com.movie.repository.ListaRepository;
 import com.movie.repository.PessoaRepository;
 import com.movie.security.ImplementacaoUserDetailsService;
 import com.movie.service.MovieService;
@@ -38,10 +40,13 @@ import com.movie.vo.MovieVO;
 public class MovieController {
 
 	@Autowired
-	private MovieService movieService;
+	MovieService movieService;
 
 	@Autowired
 	private AssistidosRepository assistidosRepository;
+	
+	@Autowired
+	private ListaRepository listaRepository;
 
 	@Autowired
 	private PessoaRepository pessoaRepository;
@@ -64,7 +69,7 @@ public class MovieController {
 	public String cadastrar() {
 		return "cadastrar";
 	}
-
+	
 	@GetMapping(value = "/omdb/{tema}")
 	public ResponseEntity<MovieOMDB> getMovie(@PathVariable String tema) {
 
@@ -214,11 +219,11 @@ public class MovieController {
 
 	@PostMapping(value = "/random/movie")
 	public String randomMovie(@RequestParam("consultar") String imdbID) {
-
 		number = (long) (1000000l + Math.random() * 8999999l);
 		String tt = "tt" + number;
 
 		imdbID = tt;
+		movieService.getMovie(imdbID);
 		MovieOMDB movieOMDB = movieService.getRandomMovie(imdbID);
 		System.out.println(imdbID);
 
@@ -307,51 +312,7 @@ public class MovieController {
 
 		return "redirect:/random";
 	}
-
-	@PostMapping(value = "/salvarAssistido")
-	public ModelAndView salvarAssistido(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
-		currentUserName(principal, pessoaModel, model);
-
-		Long id;
-
-		ImplementacaoUserDetailsService iDetailsService = new ImplementacaoUserDetailsService();
-		id = iDetailsService.getId();
-
-		String filme = imdbID;
-		String email = "";
-		email = principal.getName();
-		Optional<PessoaModel> pessoa = pessoaRepository.findById(id);
-		ModelAndView modelAndView = new ModelAndView("redirect:/assistidos");
-
-		pessoaModel.setId(id);
-
-		Assistidos assistidos = new Assistidos();
-
-		assistidos.setPessoaModel(pessoaModel);
-		assistidos.setImdbID(filme);
-
-		assistidosRepository.save(assistidos);
-
-		return modelAndView;
-	}
-
-	@GetMapping(value = "/random")
-	public String getRandomMovie(ModelMap model) {
-		model.addAttribute("title", titulo);
-		model.addAttribute("year", year);
-		model.addAttribute("released", released);
-		model.addAttribute("runtime", runtime);
-		model.addAttribute("genre", genre);
-		model.addAttribute("language", language);
-		model.addAttribute("country", country);
-		model.addAttribute("poster", poster);
-		model.addAttribute("rated", rated);
-		model.addAttribute("imdbRating", imdbRating);
-		model.addAttribute("plot", plot);
-		model.addAttribute("imdbID", tt);
-		return "random";
-	}
-
+	
 	@GetMapping(value = "/assistidos")
 	public ModelAndView getAssistido(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
 		currentUserName(principal, pessoaModel, model);
@@ -459,6 +420,114 @@ public class MovieController {
 
 		return modelAndView;
 	}
+	
+	@GetMapping(value = "/listas")
+	public ModelAndView getLista(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
+		currentUserName(principal, pessoaModel, model);
+		String filme = imdbID;
+		String nome = principal.getName();
+
+		Long id;
+		ModelAndView modelAndView = new ModelAndView("listas");
+
+		ImplementacaoUserDetailsService iDetailsService = new ImplementacaoUserDetailsService();
+		nome = iDetailsService.getNome();
+		id = iDetailsService.getId();
+
+		pessoaRepository.findById(id);
+
+		modelAndView.addObject("pessoaobj", pessoaModel.getClass());
+		modelAndView.addObject("lista", listaRepository.getLista(id));
+
+		currentUserName(principal, pessoaModel, model);
+
+		model.addAttribute("pessoaModel", pessoaModel);
+
+		return modelAndView;
+	}
+
+	@SuppressWarnings("static-access")
+	@PostMapping(value = "/listas")
+	public ModelAndView setLista(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
+		currentUserName(principal, pessoaModel, model);
+		getMovieService();
+		String filme = imdbID;
+		String nome = principal.getName();
+
+		MovieOMDB movieOMDB = new MovieOMDB();
+		Lista lista = new Lista();
+
+		Long id;
+		ModelAndView modelAndView = new ModelAndView("listas");
+
+		ImplementacaoUserDetailsService iDetailsService = new ImplementacaoUserDetailsService();
+		nome = iDetailsService.getNome();
+		id = iDetailsService.getId();
+
+		pessoaRepository.findById(id);
+
+		while (imdbID != movieOMDB.getImdbID() && movieService != null) {
+
+			movieOMDB = movieService.getOmdbID(imdbID);
+
+			titulo = movieOMDB.getTitle();
+			year = movieOMDB.getYear();
+			released = movieOMDB.getReleased();
+			runtime = movieOMDB.getRuntime();
+			genre = movieOMDB.getGenre();
+			language = movieOMDB.getLanguage();
+			country = movieOMDB.getCountry();
+			poster = movieOMDB.getPoster();
+			rated = movieOMDB.getRated();
+			imdbRating = movieOMDB.getImdbRating();
+			imdbID = movieOMDB.getImdbID();
+			plot = movieOMDB.getPlot();
+
+			movieOMDB.setTitle(titulo);
+			movieOMDB.setYear(year);
+			movieOMDB.setReleased(released);
+			movieOMDB.setRuntime(runtime);
+			movieOMDB.setGenre(genre);
+			movieOMDB.setLanguage(language);
+			movieOMDB.setCountry(country);
+			movieOMDB.setPoster(poster);
+			movieOMDB.setRated(rated);
+			movieOMDB.setImdbRating(imdbRating);
+			movieOMDB.setImdbID(imdbID);
+			movieOMDB.setPlot(plot);
+
+			model.addAttribute("title", titulo);
+			model.addAttribute("year", year);
+			model.addAttribute("released", released);
+			model.addAttribute("runtime", runtime);
+			model.addAttribute("genre", genre);
+			model.addAttribute("language", language);
+			model.addAttribute("country", country);
+			model.addAttribute("poster", poster);
+			model.addAttribute("rated", rated);
+			model.addAttribute("imdbRating", imdbRating);
+			model.addAttribute("plot", plot);
+
+			pessoaModel.setId(id);
+
+			lista.setPessoaModel(pessoaModel);
+			lista.setPoster(poster);
+			lista.setTitulo(titulo);
+			lista.setImdbID(imdbID);
+			lista.setSinopse(plot);
+
+			listaRepository.save(lista);
+
+		}
+		currentUserName(principal, pessoaModel, model);
+
+		modelAndView.addObject("pessoaobj", pessoaModel.getClass());
+		modelAndView.addObject("lista", listaRepository.getLista(id));
+
+		model.addAttribute("pessoaModel", pessoaModel);
+
+		return modelAndView;
+	}
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<MovieVO> getById(@PathVariable("id") Long id) {
@@ -505,5 +574,4 @@ public class MovieController {
 		pessoaController.currentUserName(principal, pessoaModel, model);
 
 	}
-
 }
