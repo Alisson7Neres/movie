@@ -76,7 +76,7 @@
 			class="collapse d-lg-block sidebar collapse bg-white">
 			<div class="position-sticky">
 				<div class="list-group list-group-flush mx-3 mt-4">
-					<a href="#"
+					<a href="#" style="background-color:green;"
 						class="list-group-item list-group-item-action py-2 ripple"
 						aria-current="true"> <i
 						class="fas fa-tachometer-alt fa-fw me-3"></i><span>Filmes
@@ -86,12 +86,15 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
+									<th scope="col">Excluir</th>
 									<th scope="col">Titulo</th>
 									<th scope="col">Sinopse</th>
 									<th scope="col">Poster</th>
 								</tr>
 							</thead>
 							<tr th:each="assistidos : ${assistido}">
+								<td th:text="${assistidos.id}" hidden="true" />
+								<td><a th:href="@{/removerAssistido/{assistidoid}(assistidoid=${assistidos.id})}">Remover</a>
 								<td th:text="${assistidos.titulo}" />
 								<td th:text="${assistidos.sinopse}" />
 								<th><img th:src="${assistidos.poster}" id="imageoption"></th>
@@ -100,7 +103,7 @@
 						</table>
 					</div>
 				</div>
-				<a href="listas"
+				<a href="listas" style="background-color:gray;"
 					class="list-group-item list-group-item-action py-2 ripple"
 					aria-current="true"> <i class="fas fa-chart-area fa-fw me-3"></i><span>Lista</span>
 				</a>

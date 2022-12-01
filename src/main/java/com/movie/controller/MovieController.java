@@ -44,7 +44,7 @@ public class MovieController {
 
 	@Autowired
 	private AssistidosRepository assistidosRepository;
-	
+
 	@Autowired
 	private ListaRepository listaRepository;
 
@@ -69,7 +69,7 @@ public class MovieController {
 	public String cadastrar() {
 		return "cadastrar";
 	}
-	
+
 	@GetMapping(value = "/omdb/{tema}")
 	public ResponseEntity<MovieOMDB> getMovie(@PathVariable String tema) {
 
@@ -312,7 +312,24 @@ public class MovieController {
 
 		return "redirect:/random";
 	}
-	
+
+	@GetMapping(value = "/random")
+	public String getRandomMovie(ModelMap model) {
+		model.addAttribute("title", titulo);
+		model.addAttribute("year", year);
+		model.addAttribute("released", released);
+		model.addAttribute("runtime", runtime);
+		model.addAttribute("genre", genre);
+		model.addAttribute("language", language);
+		model.addAttribute("country", country);
+		model.addAttribute("poster", poster);
+		model.addAttribute("rated", rated);
+		model.addAttribute("imdbRating", imdbRating);
+		model.addAttribute("plot", plot);
+		model.addAttribute("imdbID", tt);
+		return "random";
+	}
+
 	@GetMapping(value = "/assistidos")
 	public ModelAndView getAssistido(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
 		currentUserName(principal, pessoaModel, model);
@@ -420,7 +437,18 @@ public class MovieController {
 
 		return modelAndView;
 	}
-	
+
+	@GetMapping(value = "/removerAssistido/{assistidoid}")
+	public ModelAndView deletarAssistido(@PathVariable("assistidoid") Long assistidoid) {
+		PessoaModel pessoaModel = assistidosRepository.findById(assistidoid).get().getPessoaModel();
+
+		assistidosRepository.deleteById(assistidoid);
+
+		ModelAndView andView = new ModelAndView("redirect:/assistidos");
+		andView.addObject("assistidos", assistidosRepository.getAssistidos(pessoaModel.getId()));
+		return andView;
+	}
+
 	@GetMapping(value = "/listas")
 	public ModelAndView getLista(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
 		currentUserName(principal, pessoaModel, model);
@@ -527,6 +555,18 @@ public class MovieController {
 		model.addAttribute("pessoaModel", pessoaModel);
 
 		return modelAndView;
+	}
+
+	@GetMapping(value = "/removerLista/{listaid}")
+	public ModelAndView deletarLista(@PathVariable("listaid") Long listaid) {
+		PessoaModel pessoaModel = listaRepository.findById(listaid).get().getPessoaModel();
+
+		listaRepository.deleteById(listaid);
+
+		ModelAndView andView = new ModelAndView("redirect:/listas");
+		andView.addObject("lista", listaRepository.getLista(listaid));
+
+		return andView;
 	}
 
 	@GetMapping(value = "/{id}")
