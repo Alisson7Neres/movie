@@ -22,16 +22,8 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 		<div class="container">
-			<a class="navbar-brand" href="/movie/"> <img
-				src="https://placeholder.pics/svg/150x50/888888/EEE/Logo" alt="..."
-				height="36">
-			</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+		<a class="navbar-brand" href="/movie/" style="color:gray;">Logout
+				</a>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link active"
@@ -104,12 +96,20 @@
 		<div class="container">
 			<h3 th:text="${plot}"></h3>
 		</div>
+
+		<div th:if="${title == null}" class="text-center">
+			<br /> <br /> <br />
+			<h2>Filme não encontrado!</h2>
+			<h3>Certifica-se que o nome foi digitado corretamente</h3>
+			<h4>PESQUISAR PELO NOME ORIGINAL DO FILME/ANIME/SERIE</h4>
+		</div>
+
 	</div>
 	<br />
 	<br />
 	<br />
 	<div class="d-flex justify-content-center">
-		<div>
+		<div th:if="${title != null}">
 			<form class="navbar-nav ms-auto" action="assistidos" method="POST"
 				id="pesquisar">
 				<button class="btn btn-dark" th:value="${assistido}" type="submit">Assistido</button>

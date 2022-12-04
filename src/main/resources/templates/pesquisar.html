@@ -93,10 +93,20 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 
 		<div class="container">
 			<h3 th:text="${plot}"></h3>
+		</div>
+
+		<div th:if="${title == null}" class="text-center">
+			<br />
+			<br />
+			<br />
+			<h2>Filme não encontrado!</h2>
+			<h3>Certifica-se que o nome foi digitado corretamente</h3>
+			<h4>PESQUISAR PELO NOME ORIGINAL DO FILME/ANIME/SERIE</h4>
+
 		</div>
 	</div>
 </body>

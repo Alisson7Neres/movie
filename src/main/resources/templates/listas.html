@@ -24,16 +24,8 @@
 	<div id="loading" style="display: block">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 			<div class="container">
-				<a class="navbar-brand" href="/movie/"> <img
-					src="https://placeholder.pics/svg/150x50/888888/EEE/Logo" alt="..."
-					height="36">
+		<a class="navbar-brand" href="/movie/" style="color:gray;">Logout
 				</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ms-auto">
 						<li class="nav-item"><a class="nav-link active"
@@ -92,7 +84,7 @@
 							</thead>
 							<tr th:each="listas : ${lista}">
 								<td th:text="${listas.id}" hidden="true">
-								<td><a th:href="@{/removerLista/{listaid}(listaid=${listas.id})}">Remover</a>
+								<td><a th:href="@{/removerLista/{listaid}(listaid=${listas.id})}" style="text-decoration: none;">Remover</a>
 								<td th:text="${listas.titulo}" />
 								<td th:text="${listas.sinopse}" />
 								<th><img th:src="${listas.poster}" id="imageoption"></th>
