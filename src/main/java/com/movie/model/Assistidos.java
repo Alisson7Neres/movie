@@ -19,11 +19,20 @@ public class Assistidos {
 	@Column(name = "imdbID")
 	private String imdbID;
 	
+	@Column(name = "genre")
+	private String genre;
+	
 	@Column(name = "poster")
 	private String poster;
 	
 	@Column(name = "titulo")
 	private String titulo;
+	
+	@Column(name = "director")
+	private String director;
+	
+	@Column(name = "actors")
+	private String actors;
 	
 	@Column(name = "sinopse")
 	private String sinopse;
@@ -47,6 +56,14 @@ public class Assistidos {
 	public void setImdbID(String imdbID) {
 		this.imdbID = imdbID;
 	}
+	
+	public String getGenre() {
+		return genre;
+	}
+	
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 
 	public String getPoster() {
 		return poster;
@@ -62,6 +79,22 @@ public class Assistidos {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+	
+	public String getDirector() {
+		return director;
+	}
+	
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	
+	public String getActors() {
+		return actors;
+	}
+	
+	public void setActors(String actors) {
+		this.actors = actors;
 	}
 	
 	public String getSinopse() {

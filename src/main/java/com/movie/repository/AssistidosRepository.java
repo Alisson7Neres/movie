@@ -17,4 +17,7 @@ public interface AssistidosRepository  extends CrudRepository<Assistidos, Long>{
 	@Query("select a from Assistidos a where a.pessoaModel.id = ?1")
 	public List<Assistidos> getAssistidos(Long id);
 	
+	@Query("select a from Assistidos a where a.genre like %:genre% ")
+	public List<Assistidos> getGenero(String genre);
+	
 }

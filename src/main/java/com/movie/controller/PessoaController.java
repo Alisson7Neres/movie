@@ -32,17 +32,17 @@ public class PessoaController {
 
 	@Autowired
 	MovieService movieService;
-	
+
 	@Autowired
 	RoleService roleService;
-	
+
 	public MovieService getMovieService() {
 		return movieService;
 	}
 
 	@Autowired
 	private AssistidosRepository assistidosRepository;
-	
+
 	@Autowired
 	private ListaRepository listaRepository;
 
@@ -87,7 +87,7 @@ public class PessoaController {
 		movieController.getMovieService();
 		movieController.randomMovie(imdbID);
 	}
-	
+
 	@GetMapping(value = "/minhaconta")
 	public String currentUserName(Principal principal, PessoaModel pessoaModel, Model model) {
 		Long id = 0L;
@@ -104,7 +104,7 @@ public class PessoaController {
 
 		return "minhaconta";
 	}
-	
+
 	@GetMapping(value = "/assistidos")
 	public ModelAndView assistidos(Principal principal, PessoaModel pessoaModel, Model model) {
 		currentUserName(principal, pessoaModel, model);
@@ -158,7 +158,50 @@ public class PessoaController {
 
 		return modelAndView;
 	}
-	
+
+	@GetMapping(value = "/genero")
+	public ModelAndView genero(String acao, Principal principal, PessoaModel pessoaModel) {
+		ModelAndView andView = new ModelAndView("minhaconta");
+		String nome = principal.getName();
+
+		Long id;
+		ModelAndView modelAndView = new ModelAndView("assistidos");
+
+		ImplementacaoUserDetailsService iDetailsService = new ImplementacaoUserDetailsService();
+		nome = iDetailsService.getNome();
+		id = iDetailsService.getId();
+
+		pessoaRepository.findById(id);
+
+		modelAndView.addObject("pessoaobj", pessoaModel.getClass());
+		modelAndView.addObject("assistido", assistidosRepository.getAssistidos(id));
+		if (acao.equalsIgnoreCase("acao")) {
+			acao = "Action";
+			andView.addObject("assistido", assistidosRepository.getGenero(acao));
+			ModelAndView acaoView = new ModelAndView("assistidos");
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("aventura")) {
+			System.out.println("aventura");
+		}
+		if (acao.equalsIgnoreCase("comedia")) {
+			System.out.println("comedia");
+		}
+		if (acao.equalsIgnoreCase("drama")) {
+			System.out.println("drama");
+		}
+		if (acao.equalsIgnoreCase("suspense")) {
+			System.out.println("suspense");
+		}
+		if (acao.equalsIgnoreCase("terror")) {
+			System.out.println("terror");
+		}
+		if (acao.equalsIgnoreCase("fantasia")) {
+			System.out.println("fantasia");
+		}
+		return andView;
+	}
+
 	@GetMapping(value = "/login")
 	public String getLogin() {
 		return "login";

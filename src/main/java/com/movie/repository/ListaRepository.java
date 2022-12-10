@@ -16,5 +16,8 @@ public interface ListaRepository  extends CrudRepository<Lista, Long>{
 
 	@Query("select a from Lista a where a.pessoaModel.id = ?1")
 	public List<Lista> getLista(Long id);
+
+	@Query("select a from Lista a where a.genre like %:genre% ")
+	public List<Lista> getGenero(String genre);
 	
 }

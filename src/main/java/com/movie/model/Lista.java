@@ -19,11 +19,20 @@ public class Lista {
 	@Column(name = "imdbID")
 	private String imdbID;
 	
+	@Column(name = "genre")
+	private String genre;
+	
 	@Column(name = "poster")
 	private String poster;
 	
 	@Column(name = "titulo")
 	private String titulo;
+	
+	@Column(name = "director")
+	private String director;
+	
+	@Column(name = "actors")
+	private String actors;
 	
 	@Column(name = "sinopse")
 	private String sinopse;
@@ -38,6 +47,14 @@ public class Lista {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getGenre() {
+		return genre;
+	}
+	
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 	public String getImdbID() {
@@ -62,6 +79,22 @@ public class Lista {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+	
+	public String getDirector() {
+		return director;
+	}
+	
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	
+	public String getActors() {
+		return actors;
+	}
+	
+	public void setActors(String actors) {
+		this.actors = actors;
 	}
 	
 	public String getSinopse() {

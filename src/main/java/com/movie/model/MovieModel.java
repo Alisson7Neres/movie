@@ -27,6 +27,12 @@ public class MovieModel {
 
 	@Column(name = "genero")
 	private String genre;
+	
+	@Column(name = "director")
+	private String director;
+	
+	@Column(name = "actors")
+	private String atores;
 
 	@Column(name = "linguagem")
 	private String language;
@@ -95,6 +101,22 @@ public class MovieModel {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+	
+	public String getDirector() {
+		return director;
+	}
+	
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	
+	public String getAtores() {
+		return atores;
+	}
+	
+	public void setAtores(String atores) {
+		this.atores = atores;
 	}
 
 	public String getLanguage() {

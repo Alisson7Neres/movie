@@ -36,15 +36,20 @@
 								th:text="${pessoaModel.email}"></label></a></li>
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="/movie/minhaconta">Minha conta</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Gênero</a></li>
-						<li class="nav-item dropdown"><a
+										<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Dropdown </a>
+								Genero </a>
 							<ul class="dropdown-menu dropdown-menu-end"
 								aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="#">Action</a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
+								<li><a class="dropdown-item" th:href="@{/genero/listas(acao='acao')}">Acão</a></li>
+								<li><a class="dropdown-item" th:href="@{/genero/listas(acao='aventura')}">Aventura</a></li>
+								<li><a class="dropdown-item" th:href="@{/genero/listas(acao='comedia')}">Comédia</a></li>
+								<li><a class="dropdown-item" th:href="@{/genero/listas(acao='drama')}">Drama</a></li>
+								<li><a class="dropdown-item" th:href="@{/genero/listas(acao='horror')}">Horror</a></li>
+								<li><a class="dropdown-item" th:href="@{/genero/listas(acao='suspense')}">Suspense</a></li>
+								<li><a class="dropdown-item" th:href="@{/genero/listas(acao='terror')}">Terror</a></li>
+								<li><a class="dropdown-item" th:href="@{/genero/listas(acao='fantasia')}">Fantasia</a></li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
@@ -78,6 +83,9 @@
 								<tr>
 									<th scope="col">Excluir</th>
 									<th scope="col">Titulo</th>
+									<th scope="col">Genero</th>
+									<th scope="col">Diretor</th>
+									<th scope="col">Atores</th>
 									<th scope="col">Sinopse</th>
 									<th scope="col">Poster</th>
 								</tr>
@@ -86,6 +94,9 @@
 								<td th:text="${listas.id}" hidden="true">
 								<td><a th:href="@{/removerLista/{listaid}(listaid=${listas.id})}" style="text-decoration: none;">Remover</a>
 								<td th:text="${listas.titulo}" />
+								<td th:text="${listas.genre}" />
+								<td th:text="${listas.director}" />
+								<td th:text="${listas.actors}" />
 								<td th:text="${listas.sinopse}" />
 								<th><img th:src="${listas.poster}" id="imageoption"></th>
 							</tr>
@@ -93,7 +104,7 @@
 						</table>
 					</div>
 				</div>
-								<a href="assistidos" style="background-color:gray;"
+								<a th:href="@{/assistidos}" style="background-color:gray;"
 						class="list-group-item list-group-item-action py-2 ripple"
 						aria-current="true"> <i
 						class="fas fa-tachometer-alt fa-fw me-3"></i><span>Filmes
@@ -104,8 +115,6 @@
 
 
 	</div>
-
-
 
 
 	<div id="content" style="display: none">

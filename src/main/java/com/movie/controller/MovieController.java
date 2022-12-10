@@ -6,7 +6,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +33,8 @@ import com.movie.security.ImplementacaoUserDetailsService;
 import com.movie.service.MovieService;
 import com.movie.vo.MovieOMDB;
 import com.movie.vo.MovieVO;
+
+import ch.qos.logback.core.read.ListAppender;
 
 @Controller
 //@RequestMapping("/filmes")
@@ -88,6 +89,8 @@ public class MovieController {
 	String released = "";
 	String runtime = "";
 	String genre = "";
+	String director = "";
+	String actors = "";
 	String language = "";
 	String country = "";
 	String poster = "";
@@ -108,6 +111,8 @@ public class MovieController {
 		released = movieOMDB.getReleased();
 		runtime = movieOMDB.getRuntime();
 		genre = movieOMDB.getGenre();
+		director = movieOMDB.getDirector();
+		actors = movieOMDB.getActors();
 		language = movieOMDB.getLanguage();
 		country = movieOMDB.getCountry();
 		poster = movieOMDB.getPoster();
@@ -121,6 +126,8 @@ public class MovieController {
 		movieOMDB.setReleased(released);
 		movieOMDB.setRuntime(runtime);
 		movieOMDB.setGenre(genre);
+		movieOMDB.setDirector(director);
+		movieOMDB.setActors(actors);
 		movieOMDB.setLanguage(language);
 		movieOMDB.setCountry(country);
 		movieOMDB.setPoster(poster);
@@ -147,6 +154,8 @@ public class MovieController {
 		released = movieOMDB.getReleased();
 		runtime = movieOMDB.getRuntime();
 		genre = movieOMDB.getGenre();
+		director = movieOMDB.getDirector();
+		actors = movieOMDB.getActors();
 		language = movieOMDB.getLanguage();
 		country = movieOMDB.getCountry();
 		poster = movieOMDB.getPoster();
@@ -160,6 +169,8 @@ public class MovieController {
 		movieOMDB.setReleased(released);
 		movieOMDB.setRuntime(runtime);
 		movieOMDB.setGenre(genre);
+		movieOMDB.setDirector(director);
+		movieOMDB.setActors(actors);
 		movieOMDB.setLanguage(language);
 		movieOMDB.setCountry(country);
 		movieOMDB.setPoster(poster);
@@ -186,6 +197,8 @@ public class MovieController {
 		model.addAttribute("released", released);
 		model.addAttribute("runtime", runtime);
 		model.addAttribute("genre", genre);
+		model.addAttribute("director", director);
+		model.addAttribute("actors", actors);
 		model.addAttribute("language", language);
 		model.addAttribute("country", country);
 		model.addAttribute("poster", poster);
@@ -204,6 +217,8 @@ public class MovieController {
 		model.addAttribute("released", released);
 		model.addAttribute("runtime", runtime);
 		model.addAttribute("genre", genre);
+		model.addAttribute("director", director);
+		model.addAttribute("actors", actors);
 		model.addAttribute("language", language);
 		model.addAttribute("country", country);
 		model.addAttribute("poster", poster);
@@ -254,6 +269,8 @@ public class MovieController {
 					released = movieOMDB.getReleased();
 					runtime = movieOMDB.getRuntime();
 					genre = movieOMDB.getGenre();
+					director = movieOMDB.getDirector();
+					actors = movieOMDB.getActors();
 					language = movieOMDB.getLanguage();
 					country = movieOMDB.getCountry();
 					poster = movieOMDB.getPoster();
@@ -267,6 +284,8 @@ public class MovieController {
 					movieOMDB.setReleased(released);
 					movieOMDB.setRuntime(runtime);
 					movieOMDB.setGenre(genre);
+					movieOMDB.setDirector(director);
+					movieOMDB.setActors(actors);
 					movieOMDB.setLanguage(language);
 					movieOMDB.setCountry(country);
 					movieOMDB.setPoster(poster);
@@ -287,6 +306,8 @@ public class MovieController {
 			released = movieOMDB.getReleased();
 			runtime = movieOMDB.getRuntime();
 			genre = movieOMDB.getGenre();
+			director = movieOMDB.getDirector();
+			actors = movieOMDB.getActors();
 			language = movieOMDB.getLanguage();
 			country = movieOMDB.getCountry();
 			poster = movieOMDB.getPoster();
@@ -300,6 +321,8 @@ public class MovieController {
 			movieOMDB.setReleased(released);
 			movieOMDB.setRuntime(runtime);
 			movieOMDB.setGenre(genre);
+			movieOMDB.setDirector(director);
+			movieOMDB.setActors(actors);
 			movieOMDB.setLanguage(language);
 			movieOMDB.setCountry(country);
 			movieOMDB.setPoster(poster);
@@ -320,6 +343,8 @@ public class MovieController {
 		model.addAttribute("released", released);
 		model.addAttribute("runtime", runtime);
 		model.addAttribute("genre", genre);
+		model.addAttribute("director", director);
+		model.addAttribute("actors", actors);
 		model.addAttribute("language", language);
 		model.addAttribute("country", country);
 		model.addAttribute("poster", poster);
@@ -384,6 +409,8 @@ public class MovieController {
 			released = movieOMDB.getReleased();
 			runtime = movieOMDB.getRuntime();
 			genre = movieOMDB.getGenre();
+			director = movieOMDB.getDirector();
+			actors = movieOMDB.getActors();
 			language = movieOMDB.getLanguage();
 			country = movieOMDB.getCountry();
 			poster = movieOMDB.getPoster();
@@ -397,6 +424,8 @@ public class MovieController {
 			movieOMDB.setReleased(released);
 			movieOMDB.setRuntime(runtime);
 			movieOMDB.setGenre(genre);
+			movieOMDB.setDirector(director);
+			movieOMDB.setActors(actors);
 			movieOMDB.setLanguage(language);
 			movieOMDB.setCountry(country);
 			movieOMDB.setPoster(poster);
@@ -410,6 +439,8 @@ public class MovieController {
 			model.addAttribute("released", released);
 			model.addAttribute("runtime", runtime);
 			model.addAttribute("genre", genre);
+			model.addAttribute("director", director);
+			model.addAttribute("actors", actors);
 			model.addAttribute("language", language);
 			model.addAttribute("country", country);
 			model.addAttribute("poster", poster);
@@ -420,8 +451,11 @@ public class MovieController {
 			pessoaModel.setId(id);
 
 			assistidos.setPessoaModel(pessoaModel);
+			assistidos.setGenre(genre);
 			assistidos.setPoster(poster);
 			assistidos.setTitulo(titulo);
+			assistidos.setDirector(director);
+			assistidos.setActors(actors);
 			assistidos.setImdbID(imdbID);
 			assistidos.setSinopse(plot);
 
@@ -503,6 +537,8 @@ public class MovieController {
 			released = movieOMDB.getReleased();
 			runtime = movieOMDB.getRuntime();
 			genre = movieOMDB.getGenre();
+			director = movieOMDB.getDirector();
+			actors = movieOMDB.getActors();
 			language = movieOMDB.getLanguage();
 			country = movieOMDB.getCountry();
 			poster = movieOMDB.getPoster();
@@ -516,6 +552,8 @@ public class MovieController {
 			movieOMDB.setReleased(released);
 			movieOMDB.setRuntime(runtime);
 			movieOMDB.setGenre(genre);
+			movieOMDB.setDirector(director);
+			movieOMDB.setActors(actors);
 			movieOMDB.setLanguage(language);
 			movieOMDB.setCountry(country);
 			movieOMDB.setPoster(poster);
@@ -529,8 +567,10 @@ public class MovieController {
 			model.addAttribute("released", released);
 			model.addAttribute("runtime", runtime);
 			model.addAttribute("genre", genre);
+			model.addAttribute("director", director);
+			model.addAttribute("genre", genre);
 			model.addAttribute("language", language);
-			model.addAttribute("country", country);
+			model.addAttribute("actors", actors);
 			model.addAttribute("poster", poster);
 			model.addAttribute("rated", rated);
 			model.addAttribute("imdbRating", imdbRating);
@@ -539,8 +579,11 @@ public class MovieController {
 			pessoaModel.setId(id);
 
 			lista.setPessoaModel(pessoaModel);
+			lista.setGenre(genre);
 			lista.setPoster(poster);
 			lista.setTitulo(titulo);
+			lista.setDirector(director);
+			lista.setActors(actors);
 			lista.setImdbID(imdbID);
 			lista.setSinopse(plot);
 
@@ -567,6 +610,156 @@ public class MovieController {
 		andView.addObject("lista", listaRepository.getLista(listaid));
 
 		return andView;
+	}
+
+	@GetMapping(value = "/genero/assistidos")
+	public ModelAndView generoAssistidos(String acao, Principal principal, PessoaModel pessoaModel, Model model) {
+		
+		currentUserName(principal, pessoaModel, model);
+		
+		ModelAndView acaoView = new ModelAndView("assistidos");
+		
+		if (acao.equalsIgnoreCase("acao")) {
+			acao = "Action";
+			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+			
+		}
+		if (acao.equalsIgnoreCase("aventura")) {
+			acao = "Adventure";
+			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("comedia")) {
+			acao = "Comedy";
+			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("drama")) {
+			acao = "Drama";
+			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("horror")) {
+			acao = "Horror";
+			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("suspense")) {
+			acao = "Suspense";
+			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("terror")) {
+			acao = "Terror";
+			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("fantasia")) {
+			acao = "Fantasy";
+			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		return acaoView;
+	}
+	
+	@GetMapping(value = "/genero/listas")
+	public ModelAndView generoListas(String acao, Principal principal, PessoaModel pessoaModel, Model model) {
+		
+		currentUserName(principal, pessoaModel, model);
+		
+		ModelAndView acaoView = new ModelAndView("listas");
+		
+		if (acao.equalsIgnoreCase("acao")) {
+			acao = "Action";
+			acaoView.addObject("lista", listaRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+			
+		}
+		if (acao.equalsIgnoreCase("aventura")) {
+			acao = "Adventure";
+			acaoView.addObject("lista", listaRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("comedia")) {
+			acao = "Comedy";
+			acaoView.addObject("lista", listaRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("drama")) {
+			acao = "Drama";
+			acaoView.addObject("lista", listaRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("horror")) {
+			acao = "Horror";
+			acaoView.addObject("lista", listaRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("suspense")) {
+			acao = "Suspense";
+			acaoView.addObject("lista", listaRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("terror")) {
+			acao = "Terror";
+			acaoView.addObject("lista", listaRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		if (acao.equalsIgnoreCase("fantasia")) {
+			acao = "Fantasy";
+			acaoView.addObject("lista", listaRepository.getGenero(acao));
+			acaoView.addObject("pessoaobj", pessoaModel.getClass());
+			currentUserName(principal, pessoaModel, model);
+			model.addAttribute("pessoaModel", pessoaModel);
+			return acaoView;
+		}
+		return acaoView;
 	}
 
 	@GetMapping(value = "/{id}")

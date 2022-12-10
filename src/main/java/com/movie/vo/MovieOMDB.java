@@ -18,6 +18,12 @@ public class MovieOMDB {
 
 	@JsonProperty("Genre")
 	private String genre;
+	
+	@JsonProperty("Director")
+	private String director;
+	
+	@JsonProperty("Actors")
+	private String actors;
 
 	@JsonProperty("Language")
 	private String language;
@@ -78,6 +84,22 @@ public class MovieOMDB {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+	
+	public String getDirector() {
+		return director;
+	}
+	
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	
+	public String getActors() {
+		return actors;
+	}
+	
+	public void setActors(String actors) {
+		this.actors = actors;
 	}
 
 	public String getLanguage() {
