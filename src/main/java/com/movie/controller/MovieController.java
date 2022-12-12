@@ -34,14 +34,11 @@ import com.movie.service.MovieService;
 import com.movie.vo.MovieOMDB;
 import com.movie.vo.MovieVO;
 
-import ch.qos.logback.core.read.ListAppender;
-
 @Controller
-//@RequestMapping("/filmes")
 public class MovieController {
 
 	@Autowired
-	MovieService movieService;
+	private MovieService movieService;
 
 	@Autowired
 	private AssistidosRepository assistidosRepository;
@@ -355,10 +352,11 @@ public class MovieController {
 		return "random";
 	}
 
+	@SuppressWarnings("static-access")
 	@GetMapping(value = "/assistidos")
 	public ModelAndView getAssistido(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
 		currentUserName(principal, pessoaModel, model);
-		String filme = imdbID;
+		@SuppressWarnings("unused")
 		String nome = principal.getName();
 
 		Long id;
@@ -385,7 +383,7 @@ public class MovieController {
 	public ModelAndView setAssistido(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
 		currentUserName(principal, pessoaModel, model);
 		getMovieService();
-		String filme = imdbID;
+		@SuppressWarnings("unused")
 		String nome = principal.getName();
 
 		MovieOMDB movieOMDB = new MovieOMDB();
@@ -483,10 +481,11 @@ public class MovieController {
 		return andView;
 	}
 
+	@SuppressWarnings("static-access")
 	@GetMapping(value = "/listas")
 	public ModelAndView getLista(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
 		currentUserName(principal, pessoaModel, model);
-		String filme = imdbID;
+		@SuppressWarnings("unused")
 		String nome = principal.getName();
 
 		Long id;
@@ -513,7 +512,7 @@ public class MovieController {
 	public ModelAndView setLista(ModelMap modelMap, Principal principal, PessoaModel pessoaModel, Model model) {
 		currentUserName(principal, pessoaModel, model);
 		getMovieService();
-		String filme = imdbID;
+		@SuppressWarnings("unused")
 		String nome = principal.getName();
 
 		MovieOMDB movieOMDB = new MovieOMDB();
@@ -602,7 +601,6 @@ public class MovieController {
 
 	@GetMapping(value = "/removerLista/{listaid}")
 	public ModelAndView deletarLista(@PathVariable("listaid") Long listaid) {
-		PessoaModel pessoaModel = listaRepository.findById(listaid).get().getPessoaModel();
 
 		listaRepository.deleteById(listaid);
 
