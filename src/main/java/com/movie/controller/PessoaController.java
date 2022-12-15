@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.model.PessoaModel;
 import com.movie.model.Role;
@@ -38,14 +39,24 @@ public class PessoaController {
 	private ImplementacaoUserDetailsService implementacaoUserDetailsService;
 
 	@PostMapping(value = "/create")
-	public String setPessoa(PessoaModel pessoaModel) {
+	public String setPessoa(PessoaModel pessoaModel,
+			RedirectAttributes redirectAttributes) {
+		
+		try {
+			
+			pessoaModel = pessoaService.setPessoa(pessoaModel);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("message", "Email já cadastrado");
+			redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+			return "redirect:/cadastrar";
+		}
 
 		Role role = new Role();
 
 		String senhaCriptografada = new BCryptPasswordEncoder().encode(pessoaModel.getSenha());
 		pessoaModel.setSenha(senhaCriptografada);
-
-		pessoaModel = pessoaService.setPessoa(pessoaModel);
 
 		if (role.getNomeRole() == null && role.getId() == null) {
 			role.setNomeRole("ROLE_USER");
@@ -57,6 +68,11 @@ public class PessoaController {
 		implementacaoUserDetailsService.inserirAcessoPadrao(pessoaModel.getId());
 		return "login";
 
+	}
+	
+	@GetMapping("/cadastrar")
+	public String cadastrar(Model model){
+	    return "cadastrar";
 	}
 
 	@SuppressWarnings("static-access")

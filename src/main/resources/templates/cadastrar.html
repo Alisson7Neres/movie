@@ -55,6 +55,7 @@
 		<div style="margin: auto; width: 50%; padding: 10px; text-align: center;">
 			<form action="conta/create" method="POST" th:object="${pessoaModel}"
 				class="form-inline">
+				<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
 				<div class="form-group row">
 					<label>Nome</label> <input type="text" name="nome" field="*{nome}"
 						class="validate" required="required">
