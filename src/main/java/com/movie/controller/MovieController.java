@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.model.dto.MovieDTO;
 import com.movie.converter.MovieConverter;
@@ -456,8 +457,12 @@ public class MovieController {
 			assistidos.setActors(actors);
 			assistidos.setImdbID(imdbID);
 			assistidos.setSinopse(plot);
-
-			assistidosRepository.save(assistidos);
+			
+			try {
+				assistidosRepository.save(assistidos);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		}
 		currentUserName(principal, pessoaModel, model);
@@ -469,7 +474,7 @@ public class MovieController {
 
 		return modelAndView;
 	}
-
+	
 	@GetMapping(value = "/removerAssistido/{assistidoid}")
 	public ModelAndView deletarAssistido(@PathVariable("assistidoid") Long assistidoid) {
 		PessoaModel pessoaModel = assistidosRepository.findById(assistidoid).get().getPessoaModel();
@@ -586,7 +591,11 @@ public class MovieController {
 			lista.setImdbID(imdbID);
 			lista.setSinopse(plot);
 
+			try {
 			listaRepository.save(lista);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		}
 		currentUserName(principal, pessoaModel, model);

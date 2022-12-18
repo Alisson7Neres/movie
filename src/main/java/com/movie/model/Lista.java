@@ -16,7 +16,7 @@ public class Lista {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "imdbID")
+	@Column(name = "imdbID", unique = true)
 	private String imdbID;
 	
 	@Column(name = "genre")
