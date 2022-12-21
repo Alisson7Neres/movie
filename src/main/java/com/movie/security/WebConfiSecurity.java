@@ -39,6 +39,7 @@ public class WebConfiSecurity extends WebSecurityConfigurerAdapter{
 		.anyRequest().authenticated()
 		.and().formLogin() // Permite quaquer usuárioa
 		.loginPage("/login")
+		.failureUrl("/login-error")
 		.defaultSuccessUrl("/conta/minhaconta", true)
 		.permitAll()
 		.and().logout().logoutSuccessUrl("/login") // Mapeia URL de Logout e inválida usuárioa autenticado

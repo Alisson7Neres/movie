@@ -10,14 +10,14 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
-	
+
 	@RequestMapping("/login")
 	public String login() {
 		return "login";
 	}
-	
-	@RequestMapping("/logado")
+
+	@RequestMapping("/login?error")
 	public String logado() {
-		return "logado";
+		return "login?error";
 	}
 }
