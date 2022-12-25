@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.model.dto.MovieDTO;
 import com.movie.converter.MovieConverter;
@@ -95,14 +96,14 @@ public class MovieController {
 	String imdbRating = "";
 	String imdbID = "";
 	String plot = "";
-
-	@PostMapping(value = "/pesquisar")
-	public String postMoviePesquisa(@RequestParam("consultar") String pegarTitulo) {
+	
+	public void setGetMovie(@RequestParam("consultar") String pegarTitulo) {
+		
 		titulo = pegarTitulo;
 		MovieOMDB movieOMDB = movieService.getMovie(titulo);
 		ModelAndView andView = new ModelAndView();
 		andView.addObject("consultar", movieOMDB);
-
+		
 		titulo = movieOMDB.getTitle();
 		year = movieOMDB.getYear();
 		released = movieOMDB.getReleased();
@@ -132,6 +133,68 @@ public class MovieController {
 		movieOMDB.setImdbRating(imdbRating);
 		movieOMDB.setImdbID(imdbID);
 		movieOMDB.setPlot(plot);
+		
+	}
+	
+	public void setGetMovieIMDB(@RequestParam("consultar") String imdbID) {
+		
+		imdbID = tt;
+		MovieOMDB movieOMDB = new MovieOMDB();
+		movieOMDB = movieService.getRandomMovie(imdbID);
+		
+		titulo = movieOMDB.getTitle();
+		year = movieOMDB.getYear();
+		released = movieOMDB.getReleased();
+		runtime = movieOMDB.getRuntime();
+		genre = movieOMDB.getGenre();
+		director = movieOMDB.getDirector();
+		actors = movieOMDB.getActors();
+		language = movieOMDB.getLanguage();
+		country = movieOMDB.getCountry();
+		poster = movieOMDB.getPoster();
+		rated = movieOMDB.getRated();
+		imdbRating = movieOMDB.getImdbRating();
+		imdbID = movieOMDB.getImdbID();
+		plot = movieOMDB.getPlot();
+
+		movieOMDB.setTitle(titulo);
+		movieOMDB.setYear(year);
+		movieOMDB.setReleased(released);
+		movieOMDB.setRuntime(runtime);
+		movieOMDB.setGenre(genre);
+		movieOMDB.setDirector(director);
+		movieOMDB.setActors(actors);
+		movieOMDB.setLanguage(language);
+		movieOMDB.setCountry(country);
+		movieOMDB.setPoster(poster);
+		movieOMDB.setRated(rated);
+		movieOMDB.setImdbRating(imdbRating);
+		movieOMDB.setImdbID(imdbID);
+		movieOMDB.setPlot(plot);
+	}
+	
+	public void addAtribute(ModelMap model) {
+		
+		model.addAttribute("title", titulo);
+		model.addAttribute("year", year);
+		model.addAttribute("released", released);
+		model.addAttribute("runtime", runtime);
+		model.addAttribute("genre", genre);
+		model.addAttribute("director", director);
+		model.addAttribute("actors", actors);
+		model.addAttribute("language", language);
+		model.addAttribute("country", country);
+		model.addAttribute("poster", poster);
+		model.addAttribute("rated", rated);
+		model.addAttribute("imdbRating", imdbRating);
+		model.addAttribute("plot", plot);
+		
+	}
+
+	@PostMapping(value = "/pesquisar")
+	public String postMoviePesquisa(@RequestParam("consultar") String pegarTitulo) {
+
+		setGetMovie(pegarTitulo);
 
 		System.out.println(imdbID);
 
@@ -141,40 +204,8 @@ public class MovieController {
 
 	@PostMapping(value = "/pesquisarLogado")
 	public String postMoviePesquisaLogado(@RequestParam("consultar") String pegarTitulo) {
-		titulo = pegarTitulo;
-		MovieOMDB movieOMDB = movieService.getMovie(titulo);
-		ModelAndView andView = new ModelAndView();
-		andView.addObject("consultar", movieOMDB);
-
-		titulo = movieOMDB.getTitle();
-		year = movieOMDB.getYear();
-		released = movieOMDB.getReleased();
-		runtime = movieOMDB.getRuntime();
-		genre = movieOMDB.getGenre();
-		director = movieOMDB.getDirector();
-		actors = movieOMDB.getActors();
-		language = movieOMDB.getLanguage();
-		country = movieOMDB.getCountry();
-		poster = movieOMDB.getPoster();
-		rated = movieOMDB.getRated();
-		imdbRating = movieOMDB.getImdbRating();
-		imdbID = movieOMDB.getImdbID();
-		plot = movieOMDB.getPlot();
-
-		movieOMDB.setTitle(titulo);
-		movieOMDB.setYear(year);
-		movieOMDB.setReleased(released);
-		movieOMDB.setRuntime(runtime);
-		movieOMDB.setGenre(genre);
-		movieOMDB.setDirector(director);
-		movieOMDB.setActors(actors);
-		movieOMDB.setLanguage(language);
-		movieOMDB.setCountry(country);
-		movieOMDB.setPoster(poster);
-		movieOMDB.setRated(rated);
-		movieOMDB.setImdbRating(imdbRating);
-		movieOMDB.setImdbID(imdbID);
-		movieOMDB.setPlot(plot);
+		
+		setGetMovie(pegarTitulo);
 
 		System.out.println(imdbID);
 
@@ -202,6 +233,7 @@ public class MovieController {
 		model.addAttribute("rated", rated);
 		model.addAttribute("imdbRating", imdbRating);
 		model.addAttribute("plot", plot);
+		
 		return "pesquisarLogado";
 
 	}
@@ -209,19 +241,8 @@ public class MovieController {
 	@GetMapping(value = "/filmes")
 	public String getMovie(ModelMap model) {
 
-		model.addAttribute("title", titulo);
-		model.addAttribute("year", year);
-		model.addAttribute("released", released);
-		model.addAttribute("runtime", runtime);
-		model.addAttribute("genre", genre);
-		model.addAttribute("director", director);
-		model.addAttribute("actors", actors);
-		model.addAttribute("language", language);
-		model.addAttribute("country", country);
-		model.addAttribute("poster", poster);
-		model.addAttribute("rated", rated);
-		model.addAttribute("imdbRating", imdbRating);
-		model.addAttribute("plot", plot);
+		addAtribute(model);
+		
 		return "pesquisar";
 
 	}
@@ -261,6 +282,7 @@ public class MovieController {
 
 				if (movieOMDB.getTitle() != null && !movieOMDB.getImdbRating().contains("N/A")
 						&& !movieOMDB.getPoster().contains("N/A")) {
+					
 					titulo = movieOMDB.getTitle();
 					year = movieOMDB.getYear();
 					released = movieOMDB.getReleased();
@@ -335,20 +357,9 @@ public class MovieController {
 
 	@GetMapping(value = "/random")
 	public String getRandomMovie(ModelMap model) {
-		model.addAttribute("title", titulo);
-		model.addAttribute("year", year);
-		model.addAttribute("released", released);
-		model.addAttribute("runtime", runtime);
-		model.addAttribute("genre", genre);
-		model.addAttribute("director", director);
-		model.addAttribute("actors", actors);
-		model.addAttribute("language", language);
-		model.addAttribute("country", country);
-		model.addAttribute("poster", poster);
-		model.addAttribute("rated", rated);
-		model.addAttribute("imdbRating", imdbRating);
-		model.addAttribute("plot", plot);
-		model.addAttribute("imdbID", tt);
+		
+		addAtribute(model);
+		
 		return "random";
 	}
 
@@ -432,19 +443,7 @@ public class MovieController {
 			movieOMDB.setImdbID(imdbID);
 			movieOMDB.setPlot(plot);
 
-			model.addAttribute("title", titulo);
-			model.addAttribute("year", year);
-			model.addAttribute("released", released);
-			model.addAttribute("runtime", runtime);
-			model.addAttribute("genre", genre);
-			model.addAttribute("director", director);
-			model.addAttribute("actors", actors);
-			model.addAttribute("language", language);
-			model.addAttribute("country", country);
-			model.addAttribute("poster", poster);
-			model.addAttribute("rated", rated);
-			model.addAttribute("imdbRating", imdbRating);
-			model.addAttribute("plot", plot);
+			addAtribute(modelMap);
 
 			pessoaModel.setId(id);
 
@@ -565,19 +564,7 @@ public class MovieController {
 			movieOMDB.setImdbID(imdbID);
 			movieOMDB.setPlot(plot);
 
-			model.addAttribute("title", titulo);
-			model.addAttribute("year", year);
-			model.addAttribute("released", released);
-			model.addAttribute("runtime", runtime);
-			model.addAttribute("genre", genre);
-			model.addAttribute("director", director);
-			model.addAttribute("genre", genre);
-			model.addAttribute("language", language);
-			model.addAttribute("actors", actors);
-			model.addAttribute("poster", poster);
-			model.addAttribute("rated", rated);
-			model.addAttribute("imdbRating", imdbRating);
-			model.addAttribute("plot", plot);
+			addAtribute(modelMap);
 
 			pessoaModel.setId(id);
 
@@ -694,7 +681,7 @@ public class MovieController {
 	}
 	
 	@GetMapping(value = "/genero/listas")
-	public ModelAndView generoListas(String acao, Principal principal, PessoaModel pessoaModel, Model model) {
+	public ModelAndView generoListas(String acao, Principal principal, PessoaModel pessoaModel, RedirectAttributes model) {
 		
 		currentUserName(principal, pessoaModel, model);
 		
