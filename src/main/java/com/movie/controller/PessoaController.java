@@ -1,6 +1,8 @@
 package com.movie.controller;
 
 import java.security.Principal;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -64,6 +66,11 @@ public class PessoaController {
 			role.setId(id);
 			roleService.save(role);
 		}
+		
+		CompletableFuture.delayedExecutor(5, TimeUnit.SECONDS).execute(() -> {
+			redirectAttributes.addFlashAttribute("sucess", "Usuário cadastrado com sucesso! você será redirecionado para página de login!");
+			System.err.println("ENTROU");
+		});
 
 		implementacaoUserDetailsService.inserirAcessoPadrao(pessoaModel.getId());
 		return "login";

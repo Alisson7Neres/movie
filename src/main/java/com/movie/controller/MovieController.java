@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.model.dto.MovieDTO;
 import com.movie.converter.MovieConverter;
@@ -604,155 +603,195 @@ public class MovieController {
 
 		return andView;
 	}
-
+	
 	@GetMapping(value = "/genero/assistidos")
 	public ModelAndView generoAssistidos(String acao, Principal principal, PessoaModel pessoaModel, Model model) {
 		
 		currentUserName(principal, pessoaModel, model);
-		
+
 		ModelAndView acaoView = new ModelAndView("assistidos");
-		
-		if (acao.equalsIgnoreCase("acao")) {
+
+		switch (acao) {
+
+		case "acao": {
+
 			acao = "Action";
 			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
-			
 		}
-		if (acao.equalsIgnoreCase("aventura")) {
+		case "aventura": {
+
 			acao = "Adventure";
 			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("comedia")) {
+		case "comedia": {
+
 			acao = "Comedy";
 			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("drama")) {
+		case "drama": {
+
 			acao = "Drama";
 			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("horror")) {
+		case "horror": {
+
 			acao = "Horror";
 			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("suspense")) {
+		case "suspense": {
+
 			acao = "Suspense";
 			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("terror")) {
+		case "terror": {
+
 			acao = "Terror";
 			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("fantasia")) {
+		case "fantasia": {
+
 			acao = "Fantasy";
 			acaoView.addObject("assistido", assistidosRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		return acaoView;
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + acaoView);
+		}
+		
 	}
 	
 	@GetMapping(value = "/genero/listas")
-	public ModelAndView generoListas(String acao, Principal principal, PessoaModel pessoaModel, RedirectAttributes model) {
+	public ModelAndView generoListas(String acao, Principal principal, PessoaModel pessoaModel, Model model) {
 		
 		currentUserName(principal, pessoaModel, model);
 		
 		ModelAndView acaoView = new ModelAndView("listas");
-		
-		if (acao.equalsIgnoreCase("acao")) {
+
+		switch (acao) {
+
+		case "acao": {
+
 			acao = "Action";
 			acaoView.addObject("lista", listaRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
-			
 		}
-		if (acao.equalsIgnoreCase("aventura")) {
+		case "aventura": {
+
 			acao = "Adventure";
 			acaoView.addObject("lista", listaRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("comedia")) {
+		case "comedia": {
+
 			acao = "Comedy";
 			acaoView.addObject("lista", listaRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("drama")) {
+		case "drama": {
+
 			acao = "Drama";
 			acaoView.addObject("lista", listaRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("horror")) {
+		case "horror": {
+
 			acao = "Horror";
 			acaoView.addObject("lista", listaRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("suspense")) {
+		case "suspense": {
+
 			acao = "Suspense";
 			acaoView.addObject("lista", listaRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("terror")) {
+		case "terror": {
+
 			acao = "Terror";
 			acaoView.addObject("lista", listaRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		if (acao.equalsIgnoreCase("fantasia")) {
+		case "fantasia": {
+
 			acao = "Fantasy";
 			acaoView.addObject("lista", listaRepository.getGenero(acao));
 			acaoView.addObject("pessoaobj", pessoaModel.getClass());
 			currentUserName(principal, pessoaModel, model);
 			model.addAttribute("pessoaModel", pessoaModel);
+
 			return acaoView;
 		}
-		return acaoView;
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + acaoView);
+		}
+		
 	}
 
 	@GetMapping(value = "/{id}")

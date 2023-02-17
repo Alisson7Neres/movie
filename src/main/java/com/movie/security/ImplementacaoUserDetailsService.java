@@ -34,7 +34,7 @@ public class ImplementacaoUserDetailsService implements UserDetailsService {
 			if (pessoaModel == null) {
 				throw new UsernameNotFoundException("Usuário não foi encontrado");
 			}
-		} catch (Exception e) {
+		} catch (UsernameNotFoundException e) {
 			e.printStackTrace();
 		}
 		
